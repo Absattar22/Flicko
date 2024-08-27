@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "221510305970",
+    "project_id": "flicko-82e0a",
+    "storage_bucket": "flicko-82e0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221510305970:android:7c59b5cc7b4ed0de7161ab",
+        "android_client_info": {
+          "package_name": "com.example.flicko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221510305970-9bag9lbeptrp41kkkl5p7hl5dev0du7a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flicko",
+            "certificate_hash": "45334040c6d860d5d61b44db5d3a42624b81a8fc"
+          }
+        },
+        {
+          "client_id": "221510305970-2mt4evua4ejqor0suh15pam3e5qvc2ml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-CfkBqgGrsSq2YRDzsjkuJX-jV_0OwUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221510305970-2mt4evua4ejqor0suh15pam3e5qvc2ml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "221510305970-rg5k204tja5h3f06dr1h7qmo131180cn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flicko"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

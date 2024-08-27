@@ -1,6 +1,6 @@
 import 'package:flicko/constants.dart';
 import 'package:flicko/views/intro_views.dart';
-import 'package:flicko/views/movie_view.dart';
+import 'package:flicko/views/sign_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -92,7 +92,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MovieView()));
+                            builder: (context) => const SignInView()));
                   } else {
                     _controller.nextPage(
                         duration: const Duration(milliseconds: 200),
@@ -124,7 +124,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: [
                 SmoothPageIndicator(
                   onDotClicked: (index) => _controller.animateToPage(index,
-                      duration: const Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInCirc),
                   controller: _controller,
                   count: 4,
