@@ -95,8 +95,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             builder: (context) => const SignInView()));
                   } else {
                     _controller.nextPage(
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.easeInCirc);
+                        duration: const Duration(milliseconds: 75),
+                        curve: Curves.fastEaseInToSlowEaseOut);
                   }
                 },
                 style: ElevatedButton.styleFrom(
