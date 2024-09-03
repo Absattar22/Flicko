@@ -13,9 +13,12 @@ class MovieView extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: kPrimaryColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            elevation: 0,
+            forceElevated: false,
             pinned: false,
             floating: true,
             snap: true,

@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flicko/firebase_options.dart';
 import 'package:flicko/views/forgot_password_view.dart';
+import 'package:flicko/views/movie_details.dart';
 import 'package:flicko/views/movie_view.dart';
 import 'package:flicko/views/onboarding_screen.dart';
 import 'package:flicko/views/sign_in_view.dart';
 import 'package:flicko/views/sign_up_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flicko/views/view_all_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,6 +58,8 @@ class Flicko extends StatelessWidget {
         SignInView.id: (context) => const SignInView(),
         SignUpView.id: (context) => const SignUpView(),
         ForgotPassword.id: (context) => const ForgotPassword(),
+        MovieDetails.id: (context) => const MovieDetails(),
+        ViewAllView.id: (context) => const ViewAllView(),
       },
       initialRoute: initialRoute,
     );

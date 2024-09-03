@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -12,21 +11,18 @@ Future<UserCredential> signInWithGoogle() async {
     );
   }
 
-  final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
   final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
   );
   UserCredential userCredential =
       await FirebaseAuth.instance.signInWithCredential(credential);
- 
+
   User? user = userCredential.user;
   String? displayName = user?.displayName;
   String? photoURL = user?.photoURL;
-
-
 
   return userCredential;
 }

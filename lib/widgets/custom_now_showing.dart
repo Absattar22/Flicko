@@ -17,7 +17,7 @@ class CustomMovieViewBuilder extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.only(
-        left: screenWidth * 0.02,
+        left: screenWidth * 0.04,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +36,9 @@ class CustomMovieViewBuilder extends StatelessWidget {
               Row(
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'viewAllView');
+                    },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
                     ),
@@ -69,9 +71,14 @@ class CustomMovieViewBuilder extends StatelessWidget {
               shrinkWrap: true,
               itemCount: 10,
               itemBuilder: (context, index) {
-                return CustomMovieView(
-                  img: img,
-                  title: movieTitle,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'movieDetails');
+                  },
+                  child: CustomMovieView(
+                    img: img,
+                    title: movieTitle,
+                  ),
                 );
               },
             ),
