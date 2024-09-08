@@ -32,9 +32,10 @@ class MovieView extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 const CustomMovieViewBuilder(
-                    title: 'Now Showing',
-                    img: 'assets/images/Interstellar.jpg',
-                    movieTitle: 'Interstellar'),
+                  title: 'Now Showing',
+                  img: 'assets/images/Interstellar.jpg',
+                  movieTitle: 'Interstellar',
+                ),
                 const CustomMovieViewBuilder(
                   title: 'Top Rated',
                   img: 'assets/images/AllTheBrightPlaces.jpg',
