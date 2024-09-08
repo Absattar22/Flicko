@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flicko/firebase_options.dart';
+import 'package:flicko/views/categories_view.dart';
 import 'package:flicko/views/forgot_password_view.dart';
 import 'package:flicko/views/movie_details.dart';
 import 'package:flicko/views/movie_view.dart';
@@ -60,6 +61,7 @@ class Flicko extends StatelessWidget {
         ForgotPassword.id: (context) => const ForgotPassword(),
         MovieDetails.id: (context) => const MovieDetails(),
         ViewAllView.id: (context) => const ViewAllView(),
+        CategoriesView.id: (context) => const CategoriesView(),
       },
       initialRoute: initialRoute,
     );
