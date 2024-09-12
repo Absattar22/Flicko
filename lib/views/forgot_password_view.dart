@@ -3,7 +3,6 @@ import 'package:flicko/constants.dart';
 import 'package:flicko/views/sign_in_view.dart';
 import 'package:flutter/material.dart';
 
-
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
 
@@ -104,7 +103,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           Center(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 78, 200, 62),
+                backgroundColor: kSecondaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
