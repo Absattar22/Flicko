@@ -2,9 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flicko/firebase_options.dart';
 import 'package:flicko/views/categories_view.dart';
 import 'package:flicko/views/forgot_password_view.dart';
-import 'package:flicko/views/movie_details.dart';
+import 'package:flicko/views/movie_details_view.dart';
 import 'package:flicko/views/movie_view.dart';
 import 'package:flicko/views/onboarding_screen.dart';
+import 'package:flicko/views/recommendation_view.dart';
 import 'package:flicko/views/sign_in_view.dart';
 import 'package:flicko/views/sign_up_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,10 +36,8 @@ void main() async {
     initialRoute = SignUpView.id;
   }
 
-  runApp(DevicePreview(
-    enabled: !kReleaseMode,
-    builder: (context) => Flicko(initialRoute: initialRoute),
-  ));
+  runApp( Flicko(initialRoute: initialRoute),
+  );
 }
 
 class Flicko extends StatelessWidget {
@@ -49,8 +48,8 @@ class Flicko extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
+      //locale: DevicePreview.locale(context),
+     // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       routes: {
@@ -62,6 +61,7 @@ class Flicko extends StatelessWidget {
         MovieDetails.id: (context) => const MovieDetails(),
         ViewAllView.id: (context) => const ViewAllView(),
         CategoriesView.id: (context) => const CategoriesView(),
+        RecommendationView.id: (context) => const RecommendationView(),
       },
       initialRoute: initialRoute,
     );

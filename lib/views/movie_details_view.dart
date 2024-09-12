@@ -1,5 +1,4 @@
 import 'package:flicko/constants.dart';
-import 'package:flicko/widgets/custom_movie_attribute.dart';
 import 'package:flicko/widgets/custom_movie_cast.dart';
 import 'package:flicko/widgets/custom_movie_description.dart';
 import 'package:flicko/widgets/custom_movie_image.dart';

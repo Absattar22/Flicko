@@ -1,4 +1,3 @@
-import 'package:flicko/constants.dart';
 import 'package:flicko/models/categories_model.dart';
 import 'package:flicko/widgets/custom_category.dart';
 import 'package:flutter/material.dart';

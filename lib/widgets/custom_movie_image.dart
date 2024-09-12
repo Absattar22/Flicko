@@ -27,11 +27,6 @@ class CustomMovieImage extends StatelessWidget {
             },
           ),
         ),
-        const Positioned(
-          right: 20,
-          top: 20,
-          child: Icon(Icons.favorite_border, color: Colors.white),
-        ),
       ],
     );
   }

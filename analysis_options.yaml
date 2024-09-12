@@ -17,6 +17,7 @@ analyzer:
     unrelated_type_equality_checks: ignore
     unused_local_variable: ignore
     must_be_immutable: ignore
+    avoid_print: ignore
 include: package:flutter_lints/flutter.yaml
 
 linter:

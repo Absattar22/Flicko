@@ -1,5 +1,6 @@
 import 'package:flicko/constants.dart';
 import 'package:flicko/views/categories_view.dart';
+import 'package:flicko/views/recommendation_view.dart';
 import 'package:flicko/widgets/custom_movie_view.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ class CustomMovieViewBuilder extends StatelessWidget {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, CategoriesView.id);
+                      Navigator.pushNamed(context, RecommendationView.id);
                     },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
