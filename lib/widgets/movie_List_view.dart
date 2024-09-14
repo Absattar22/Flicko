@@ -1,35 +1,47 @@
+// movie_list.dart
+import 'package:flicko/models/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flicko/widgets/custom_now_showing.dart';
 
+
 class MovieList extends StatelessWidget {
-  const MovieList({super.key});
+  final List<Movie> movies;
+  final String title;
+
+  const MovieList({super.key, required this.movies, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              const CustomMovieViewBuilder(
-                title: 'Popular',
-                img: 'assets/images/Interstellar.jpg',
-                movieTitle: 'Interstellar',
-              ),
-              const CustomMovieViewBuilder(
-                title: 'Top Rated',
-                img: 'assets/images/AllTheBrightPlaces.jpg',
-                movieTitle: 'All The Bright Places',
-              ),
-              const CustomMovieViewBuilder(
-                title: 'Must Watch',
-                img: 'assets/images/furious7.jpg',
-                movieTitle: 'Furious 7',
-              ),
-            ],
+    return SliverToBoxAdapter(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           ),
-        ),
-      ],
+          movies.isEmpty
+              ? Center(child: Text('No movies available'))
+              : SizedBox(
+                  height: 200, // Adjust height as needed
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: movies.length,
+                    itemBuilder: (context, index) {
+                      final movie = movies[index];
+                      return CustomMovieViewBuilder(
+                        title: title,
+                        img: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                        movieTitle: movie.title,
+                      );
+                    },
+                  ),
+                ),
+        ],
+      ),
     );
   }
 }
