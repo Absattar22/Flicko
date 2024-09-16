@@ -1,15 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flicko/firebase_options.dart';
-import 'package:flicko/views/categories_view.dart';
-import 'package:flicko/views/forgot_password_view.dart';
-import 'package:flicko/views/movie_details_view.dart';
-import 'package:flicko/views/movie_view.dart';
-import 'package:flicko/views/onboarding_screen.dart';
-import 'package:flicko/views/recommendation_view.dart';
-import 'package:flicko/views/sign_in_view.dart';
-import 'package:flicko/views/sign_up_view.dart';
+import 'package:flicko/views/profile_view.dart';
+import 'firebase_options.dart';
+import 'views/categories_view.dart';
+import 'views/forgot_password_view.dart';
+import 'views/movie_details_view.dart';
+import 'views/movie_view.dart';
+import 'views/onboarding_screen.dart';
+import 'views/recommendation_view.dart';
+import 'views/sign_in_view.dart';
+import 'views/sign_up_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flicko/views/view_all_view.dart';
+import 'views/view_all_view.dart';
+import 'views/watch_list_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,8 +38,10 @@ void main() async {
     initialRoute = SignUpView.id;
   }
 
-  runApp( Flicko(initialRoute: initialRoute),
-  );
+  runApp(DevicePreview(
+    enabled: !kReleaseMode,
+    builder: (context) => Flicko(initialRoute: initialRoute),
+  ));
 }
 
 class Flicko extends StatelessWidget {
@@ -48,8 +52,8 @@ class Flicko extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       useInheritedMediaQuery: true,
-      //locale: DevicePreview.locale(context),
-     // builder: DevicePreview.appBuilder,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       routes: {
@@ -58,10 +62,12 @@ class Flicko extends StatelessWidget {
         SignInView.id: (context) => const SignInView(),
         SignUpView.id: (context) => const SignUpView(),
         ForgotPassword.id: (context) => const ForgotPassword(),
-        MovieDetails.id: (context) => const MovieDetails(),
+        MovieDetailsView.id: (context) => const MovieDetailsView(),
         ViewAllView.id: (context) => const ViewAllView(),
         CategoriesView.id: (context) => const CategoriesView(),
         RecommendationView.id: (context) => const RecommendationView(),
+        ProfileView.id: (context) => const ProfileView(),
+        WatchListView.id: (context) => const WatchListView(),
       },
       initialRoute: initialRoute,
     );
