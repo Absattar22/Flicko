@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomMovieView extends StatelessWidget {
-  const CustomMovieView({super.key , required this.img , required this.title});
+  const CustomMovieView({super.key, required this.img, required this.title});
 
   final String img;
   final String title;
@@ -17,8 +17,8 @@ class CustomMovieView extends StatelessWidget {
         children: [
           Image.asset(
             img,
-            width: screenWidth * 0.4,
-            height: screenHeight * 0.3,
+            width: screenWidth * 0.5,
+            height: screenHeight * 0.35,
             fit: BoxFit.cover,
           ),
           Padding(
@@ -30,7 +30,7 @@ class CustomMovieView extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: screenHeight * 0.018,
+                  fontSize: screenHeight * 0.016,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -42,13 +42,13 @@ class CustomMovieView extends StatelessWidget {
               Icon(
                 Icons.star,
                 color: Colors.yellow.shade700,
-                size: 20,
+                size: 16,
               ),
               const SizedBox(width: 4),
               Text(
                 '10',
                 style: TextStyle(
-                  fontSize: screenHeight * 0.02,
+                  fontSize: screenHeight * 0.017,
                   fontWeight: FontWeight.bold,
                   color: const Color.fromARGB(255, 130, 128, 128),
                 ),
