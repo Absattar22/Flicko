@@ -1,12 +1,11 @@
-import 'package:flicko/views/categories_view.dart';
-import 'package:flicko/views/home_view.dart';
-import 'package:flicko/views/recommendation_view.dart';
-import 'package:flicko/views/search_view.dart';
-import 'package:flicko/views/watch_list_view.dart';
-import 'package:flicko/widgets/custom_navigation_bar.dart';
+import 'package:flicko/views/profile_view.dart';
+import 'categories_view.dart';
+import 'home_view.dart';
+import 'recommendation_view.dart';
+import 'watch_list_view.dart';
+import '../widgets/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flicko/constants.dart';
-
+import '../constants.dart';
 
 class MovieView extends StatefulWidget {
   const MovieView({super.key});
@@ -24,24 +23,24 @@ class _MovieViewState extends State<MovieView> {
     const HomeView(),
     const WatchListView(),
     const RecommendationView(),
-    const SearchView(),
     const CategoriesView(),
+    const ProfileView(),
   ];
 
   final List<IconData> iconList = [
     Icons.home,
     Icons.bookmark,
     Icons.recommend,
-    Icons.search,
     Icons.category_outlined,
+    Icons.person,
   ];
 
   final List<String> labels = [
     'Home',
     'Watchlist',
     'Recommend',
-    'Search',
     'Categories',
+    'Profile',
   ];
 
   void onTabTapped(int index) {
@@ -57,8 +56,7 @@ class _MovieViewState extends State<MovieView> {
     return Scaffold(
       backgroundColor: kPrimaryColor,
       body: IndexedStack(
-        index:
-            currentIndex, 
+        index: currentIndex,
         children: _screens,
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
