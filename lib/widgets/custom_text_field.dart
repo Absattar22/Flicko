@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CustomFormTextField extends StatefulWidget {
-  
   CustomFormTextField({
     super.key,
     required this.hint,

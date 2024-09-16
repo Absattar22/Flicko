@@ -1,4 +1,4 @@
-import 'package:flicko/widgets/custom_elevated_button.dart';
+import 'custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -35,7 +35,7 @@ class _CustomMovieTitleState extends State<CustomMovieTitle> {
                     isWatchLater = !isWatchLater;
                   });
                 },
-                icon: FaIcon(FontAwesomeIcons.solidClock,
+                icon: FaIcon(FontAwesomeIcons.solidBookmark,
                     color: isWatchLater
                         ? const Color.fromARGB(255, 227, 166, 12)
                         : Colors.white),

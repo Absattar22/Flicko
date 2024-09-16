@@ -1,6 +1,6 @@
 import 'package:flicko/constants.dart';
-import 'package:flicko/views/categories_view.dart';
-import 'package:flicko/views/recommendation_view.dart';
+import 'package:flicko/views/movie_details_view.dart';
+import 'package:flicko/views/view_all_view.dart';
 import 'package:flicko/widgets/custom_movie_view.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,7 @@ class CustomMovieViewBuilder extends StatelessWidget {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, RecommendationView.id);
+                      Navigator.pushNamed(context, ViewAllView.id);
                     },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
@@ -49,7 +49,7 @@ class CustomMovieViewBuilder extends StatelessWidget {
                         Text(
                           'View All',
                           style: TextStyle(
-                            color: kSecondaryColor,
+                            color: kSecondaryColor.withAlpha(200),
                             fontSize: screenHeight * 0.018,
                           ),
                         ),
@@ -75,7 +75,7 @@ class CustomMovieViewBuilder extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, 'movieDetails');
+                    Navigator.pushNamed(context, MovieDetailsView.id);
                   },
                   child: CustomMovieView(
                     img: img,

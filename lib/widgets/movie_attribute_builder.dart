@@ -1,4 +1,4 @@
-import 'package:flicko/widgets/custom_movie_attribute.dart';
+import 'custom_movie_attribute.dart';
 import 'package:flutter/material.dart';
 
 class MovieAttributeBuilder extends StatelessWidget {

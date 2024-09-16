@@ -1,5 +1,5 @@
-import 'package:flicko/constants.dart';
-import 'package:flicko/widgets/custom_log_out.dart';
+import '../constants.dart';
+import 'custom_log_out.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {

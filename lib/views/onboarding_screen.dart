@@ -1,6 +1,6 @@
-import 'package:flicko/constants.dart';
-import 'package:flicko/views/intro_views.dart';
-import 'package:flicko/views/sign_in_view.dart';
+import '../constants.dart';
+import 'intro_views.dart';
+import 'sign_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

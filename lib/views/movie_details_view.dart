@@ -1,14 +1,14 @@
-import 'package:flicko/constants.dart';
-import 'package:flicko/widgets/custom_movie_cast.dart';
-import 'package:flicko/widgets/custom_movie_description.dart';
-import 'package:flicko/widgets/custom_movie_image.dart';
-import 'package:flicko/widgets/custom_movie_title.dart';
-import 'package:flicko/widgets/movie_attribute_builder.dart';
+import '../constants.dart';
+import '../widgets/custom_movie_cast.dart';
+import '../widgets/custom_movie_description.dart';
+import '../widgets/custom_movie_image.dart';
+import '../widgets/custom_movie_title.dart';
+import '../widgets/movie_attribute_builder.dart';
 import 'package:flutter/material.dart';
 
-class MovieDetails extends StatelessWidget {
-  const MovieDetails({super.key});
-  static const String id = 'movieDetails';
+class MovieDetailsView extends StatelessWidget {
+  const MovieDetailsView({super.key});
+  static const String id = 'movieDetailsView';
 
   @override
   Widget build(BuildContext context) {

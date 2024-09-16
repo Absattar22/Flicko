@@ -1,5 +1,5 @@
-import 'package:flicko/models/categories_model.dart';
-import 'package:flicko/widgets/custom_category.dart';
+import '../models/categories_model.dart';
+import 'custom_category.dart';
 import 'package:flutter/material.dart';
 
 class CustomCategoryBuilder extends StatefulWidget {

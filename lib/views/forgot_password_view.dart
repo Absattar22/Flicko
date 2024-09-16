@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flicko/constants.dart';
-import 'package:flicko/views/sign_in_view.dart';
+import '../constants.dart';
+import 'sign_in_view.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatefulWidget {

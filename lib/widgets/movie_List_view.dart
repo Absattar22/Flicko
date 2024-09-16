@@ -24,7 +24,7 @@ class MovieList extends StatelessWidget {
             ),
           ),
           movies.isEmpty
-              ? Center(child: Text('No movies available'))
+              ? const Center(child: Text('No movies available'))
               : SizedBox(
                   height: 200, // Adjust height as needed
                   child: ListView.builder(
@@ -34,7 +34,7 @@ class MovieList extends StatelessWidget {
                       final movie = movies[index];
                       return CustomMovieViewBuilder(
                         title: title,
-                        img: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                        img: 'https://image.tmdb.org/t/p/w100${movie.posterPath}',
                         movieTitle: movie.title,
                       );
                     },
