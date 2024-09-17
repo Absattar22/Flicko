@@ -19,38 +19,41 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return AnimatedBottomNavigationBar.builder(
+      height: screenHeight > 1100 ? 140 : 55,
       itemCount: iconList.length,
       tabBuilder: (int index, bool isActive) {
         final color = isActive ? Colors.red : Colors.grey;
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              iconList[index],
-              size: screenWidth * 0.06,
-              color: color,
+        return Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: screenHeight > 1200 ? 20 : 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(
+                  iconList[index],
+                  size: screenHeight * 0.027,
+                  color: color,
+                ),
+                Text(
+                  labels[index],
+                  style: TextStyle(
+                    color: color,
+                    fontSize: screenWidth * 0.027,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 4),
-            Text(
-              labels[index],
-              style: TextStyle(
-                color: color,
-                fontSize: screenWidth * 0.03,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+          ),
         );
       },
       backgroundColor: kPrimaryColor,
       activeIndex: currentIndex,
-      gapLocation: GapLocation.none, // No gap needed as we don't have a FAB
+      gapLocation: GapLocation.none,
       notchSmoothness: NotchSmoothness.verySmoothEdge,
-      leftCornerRadius: 32,
-      rightCornerRadius: 32,
       onTap: onTabTapped,
     );
   }
