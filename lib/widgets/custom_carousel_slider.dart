@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import '../constants.dart';
+import 'custom_cached_network_image.dart';
 
 class CustomCarouselSlider extends StatelessWidget {
   const CustomCarouselSlider({super.key});
@@ -13,28 +16,53 @@ class CustomCarouselSlider extends StatelessWidget {
       'Harry Potter',
       'Inception',
       'Spider-Man',
-      'Movie 7',
-      'Movie 8',
-      'Movie 9',
-      'Movie 10',
+      'Inside Out 2',
+      'The Green Mile',
+      'The Shawshank Redemption',
+      'The Dark Knight',
     ];
 
-    List<Image> images = [
-      Image.network(
-          'https://resizing.flixster.com/7c3qnZfPzZgID7Ft97PccFwEf9U=/206x305/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p10543523_p_v8_as.jpg'),
-      Image.network(
-          'https://m.media-amazon.com/images/M/MV5BOWVhYzY1ODItOTU0Ni00MDQwLTk3ZDYtOTc0YTAwMmM4NzAxXkEyXkFqcGc@._V1_.jpg'),
-      Image.network(
-          'https://media0055.elcinema.com/uploads/_640x_bcf9571c922b28fbebcab91266dfbc78738fc58f479dd1768dd69b125cad34bd.jpg'),
-      Image.network(
-          'https://musicimage.xboxlive.com/catalog/video.movie.8D6KGWXN8J3V/image?locale=en-ca&mode=crop&purposes=BoxArt&q=90&h=300&w=200&format=jpg'),
-      Image.network(
-          'https://m.media-amazon.com/images/M/MV5BZjhkNjM0ZTMtNGM5MC00ZTQ3LTk3YmYtZTkzYzdiNWE0ZTA2XkEyXkFqcGc@._V1_.jpg'),
-      Image.network('https://picsum.photos/seed/5/200/300'),
-      Image.network('https://picsum.photos/seed/6/200/300'),
-      Image.network('https://picsum.photos/seed/7/200/300'),
-      Image.network('https://picsum.photos/seed/8/200/300'),
-      Image.network('https://picsum.photos/seed/9/200/300'),
+    List<Widget> images = const [
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://resizing.flixster.com/7c3qnZfPzZgID7Ft97PccFwEf9U=/206x305/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p10543523_p_v8_as.jpg',
+      ),
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://m.media-amazon.com/images/M/MV5BOWVhYzY1ODItOTU0Ni00MDQwLTk3ZDYtOTc0YTAwMmM4NzAxXkEyXkFqcGc@._V1_.jpg',
+      ),
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://media0055.elcinema.com/uploads/_640x_bcf9571c922b28fbebcab91266dfbc78738fc58f479dd1768dd69b125cad34bd.jpg',
+      ),
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://musicimage.xboxlive.com/catalog/video.movie.8D6KGWXN8J3V/image?locale=en-ca&mode=crop&purposes=BoxArt&q=90&h=300&w=200&format=jpg',
+      ),
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://m.media-amazon.com/images/M/MV5BZjhkNjM0ZTMtNGM5MC00ZTQ3LTk3YmYtZTkzYzdiNWE0ZTA2XkEyXkFqcGc@._V1_.jpg',
+      ),
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://m.media-amazon.com/images/M/MV5BZjI5NmFmOWUtZWY0ZS00NTc5LWE0YjgtMjk3YmNiM2EwM2U4XkEyXkFqcGdeQXVyMTA1NjE5MTAz._V1_.jpg',
+      ),
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://m.media-amazon.com/images/M/MV5BYTc1MDQ3NjAtOWEzMi00YzE1LWI2OWUtNjQ0OWJkMzI3MDhmXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg',
+      ),
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://m.media-amazon.com/images/M/MV5BMTUxMzQyNjA5MF5BMl5BanBnXkFtZTYwOTU2NTY3._V1_FMjpg_UX1000_.jpg',
+      ),
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg',
+      ),
+      CustomCachedNetworkImage(
+        imageUrl:
+            'https://m.media-amazon.com/images/S/pv-target-images/e9a43e647b2ca70e75a3c0af046c4dfdcd712380889779cbdc2c57d94ab63902.jpg',
+      ),
     ];
 
     final screenHeight = MediaQuery.of(context).size.height;
@@ -67,17 +95,22 @@ class CustomCarouselSlider extends StatelessWidget {
         // Carousel Slider
         SizedBox(
           height: screenHeight * 0.4,
+          width: screenWidth,
           child: CarouselSlider.builder(
             itemCount: movieNames.length,
             itemBuilder: (context, index, realIndex) {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: Stack(
                     children: [
                       // Movie Image
-                      images[index],
+                      SizedBox(
+                        height: screenHeight * 0.35,
+                        width: screenWidth * 0.7,
+                        child: images[index],
+                      ),
                       // Gradient Overlay to ensure text is visible
                       Positioned.fill(
                         child: Container(
@@ -93,27 +126,24 @@ class CustomCarouselSlider extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Movie Title and Icon at the bottom
+
                       Positioned(
-                        bottom: 20,
-                        left: 20,
+                        bottom: 15,
+                        left: 15,
                         child: Row(
                           children: [
                             Icon(
                               Icons.play_circle_filled,
                               color: Colors.white,
-                              size: screenWidth * 0.07, // Scaled to screen size
+                              size: screenWidth * 0.07,
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              maxLines: 2,
                               movieNames[index],
                               style: TextStyle(
-                                fontSize:
-                                    screenWidth * 0.030, // Responsive font size
+                                fontSize: screenWidth * 0.035,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-
                                 shadows: [
                                   Shadow(
                                     offset: const Offset(2, 2),
@@ -132,15 +162,16 @@ class CustomCarouselSlider extends StatelessWidget {
               );
             },
             options: CarouselOptions(
-              initialPage: 1,
+              initialPage: 0,
               height: screenHeight * 0.35,
-              viewportFraction: screenWidth > 600 ? 0.3 : 0.6,
+              viewportFraction: screenWidth > 600 ? 0.35 : 0.55,
               pageSnapping: true,
               enlargeCenterPage: true,
-              enableInfiniteScroll: false,
+              enableInfiniteScroll: true,
               autoPlay: true,
-              autoPlayCurve: Curves.fastOutSlowIn,
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              autoPlayCurve: Curves.easeInOut,
+              autoPlayAnimationDuration: const Duration(milliseconds: 900),
+              scrollDirection: Axis.horizontal,
             ),
           ),
         ),
