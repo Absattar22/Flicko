@@ -1,5 +1,5 @@
 import 'package:flicko/widgets/custom_carousel_slider.dart';
-import 'package:flicko/widgets/custom_now_showing.dart';
+import 'package:flicko/widgets/custom_movie_builder.dart';
 import 'package:flutter/material.dart';
 import '../data/api.dart';
 import '../models/movie_model.dart';
@@ -15,47 +15,47 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController searchController = TextEditingController();
   final ApiService _apiService = ApiService();
-  List<Movie> _searchResults = [];
-  bool _isLoading = false;
-  bool _isSearching = false;
+  List<Movie> searchResults = [];
+  bool isLoading = false;
+  bool isSearching = false;
 
   @override
   void dispose() {
-    _searchController.dispose();
+    searchController.dispose();
     super.dispose();
   }
 
-  void _searchMovies(String query) async {
+  void searchMovies(String query) async {
     if (query.isNotEmpty) {
       setState(() {
-        _isSearching = true;
-        _isLoading = true;
+        isSearching = true;
+        isLoading = true;
       });
 
       try {
         final results = await _apiService.searchMovies(query);
         setState(() {
-          _searchResults = results;
+          searchResults = results;
         });
       } catch (e) {
         print(e);
       } finally {
         setState(() {
-          _isLoading = false;
+          isLoading = false;
         });
       }
     } else {
       setState(() {
-        _isSearching = false;
-        _searchResults = [];
-        _isLoading = false;
+        isSearching = false;
+        searchResults = [];
+        isLoading = false;
       });
     }
   }
 
-  void _onMovieTap(Movie movie) {
+  void onMovieTap(Movie movie) {
     Navigator.pushNamed(
       context,
       MovieDetailsView.id,
@@ -76,10 +76,19 @@ class _HomeViewState extends State<HomeView> {
               padding: EdgeInsets.only(
                   top: screenHeight * 0.05, left: 16, right: 16),
               child: TextField(
-                controller: _searchController,
-                onChanged: _searchMovies,
+                controller: searchController,
+                onChanged: searchMovies,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
+                  suffixIcon: isSearching
+                      ? IconButton(
+                          icon: const Icon(Icons.clear, color: Colors.white),
+                          onPressed: () {
+                            searchController.clear();
+                            searchMovies('');
+                          },
+                        )
+                      : null,
                   hintText: 'Search movies...',
                   hintStyle: const TextStyle(color: Colors.white54),
                   prefixIcon: const Icon(Icons.search, color: Colors.white),
@@ -95,7 +104,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          _isLoading
+          isLoading
               ? const SliverFillRemaining(
                   child: Center(
                     child: CircularProgressIndicator(
@@ -103,7 +112,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                 )
-              : _isSearching && _searchResults.isEmpty
+              : isSearching && searchResults.isEmpty
                   ? SliverFillRemaining(
                       child: Center(
                         child: Padding(
@@ -131,7 +140,7 @@ class _HomeViewState extends State<HomeView> {
                   : SliverList(
                       delegate: SliverChildListDelegate(
                         [
-                          if (!_isSearching) ...[
+                          if (!isSearching) ...[
                             GestureDetector(
                               onTap: () => Navigator.pushNamed(
                                   context, CategoriesView.id),
@@ -142,14 +151,15 @@ class _HomeViewState extends State<HomeView> {
                               img: 'assets/images/AllTheBrightPlaces.jpg',
                               movieTitle: 'All The Bright Places',
                             ),
+                            const SizedBox(height: 10),
                             const CustomMovieViewBuilder(
-                              title: 'Must Watch',
+                              title: 'Most Watched',
                               img: 'assets/images/furious7.jpg',
                               movieTitle: 'Furious 7',
                             ),
                           ],
-                          if (_isSearching)
-                            ..._searchResults.map(
+                          if (isSearching)
+                            ...searchResults.map(
                               (movie) => ListTile(
                                 leading: movie.posterPath.isNotEmpty
                                     ? Image.network(
@@ -161,7 +171,7 @@ class _HomeViewState extends State<HomeView> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                onTap: () => _onMovieTap(movie),
+                                onTap: () => onMovieTap(movie),
                               ),
                             ),
                         ],
