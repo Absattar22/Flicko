@@ -3,12 +3,22 @@ import 'package:flicko/models/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flicko/presentation/widgets/custom_movie_builder.dart';
 
-
 class MovieList extends StatelessWidget {
   final List<Movie> movies;
-  final String title;
+  final String title, img, movieTitle, rating;
+  final int count;
 
-  const MovieList({super.key, required this.movies, required this.title});
+  final void Function() onPressed;
+
+  const MovieList(
+      {super.key,
+      required this.movies,
+      required this.title,
+      required this.img,
+      required this.movieTitle,
+      required this.rating,
+      required this.count,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +44,8 @@ class MovieList extends StatelessWidget {
                       final movie = movies[index];
                       return CustomMovieViewBuilder(
                         title: title,
-                        img: 'https://image.tmdb.org/t/p/w100${movie.posterPath}',
-                        movieTitle: movie.title,
+                        movies: movies,
+                        onPressed: onPressed,
                       );
                     },
                   ),
