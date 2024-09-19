@@ -20,10 +20,19 @@ class Movie {
     return Movie(
       title: json['title'],
       overview: json['overview'],
-      posterPath: json['poster_path'] ?? '', 
-      releaseDate: json['release_date'] ?? 'Unknown', 
-      language: json['original_language'] ?? 'Unknown', 
+      posterPath: json['poster_path'] ?? '',
+      releaseDate: json['release_date'] ?? 'Unknown',
+      language: json['original_language'] ?? 'Unknown',
       voteAverage: double.parse((json['vote_average'] as num).toString()).toDouble(),
     );
+  }
+
+  // Method to return the full image URL
+  String fullImageUrl() {
+    if (posterPath.isNotEmpty) {
+      return 'https://image.tmdb.org/t/p/w500$posterPath';
+    } else {
+      return ''; 
+    }
   }
 }
