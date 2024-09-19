@@ -1,5 +1,7 @@
+
 import 'package:flicko/constants.dart';
 import 'package:flicko/presentation/views/profile_view.dart';
+
 import 'categories_view.dart';
 import 'home_view.dart';
 import 'recommendation_view.dart';
