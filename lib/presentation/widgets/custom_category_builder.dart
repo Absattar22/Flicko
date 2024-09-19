@@ -1,5 +1,5 @@
 import '../../models/categories_model.dart';
-import 'custom_category.dart';
+import 'custom_container.dart';
 import 'package:flutter/material.dart';
 
 class CustomCategoryBuilder extends StatefulWidget {
@@ -96,7 +96,7 @@ class _CustomCategoryBuilderState extends State<CustomCategoryBuilder> {
         ),
         itemCount: categories.length,
         itemBuilder: (context, index) {
-          return CustomCategory(
+          return CustomContainer(
             title: categories[index].title,
             imgUrl: categories[index].imgUrl,
           );

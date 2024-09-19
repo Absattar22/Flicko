@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class CustomCategory extends StatelessWidget {
-  const CustomCategory({super.key, required this.title, required this.imgUrl});
+class CustomContainer extends StatelessWidget {
+  const CustomContainer({super.key, required this.title, required this.imgUrl});
 
   final String title;
   final String imgUrl;
