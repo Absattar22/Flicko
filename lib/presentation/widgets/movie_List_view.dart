@@ -1,7 +1,7 @@
 // movie_list.dart
 import 'package:flicko/models/movie_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flicko/widgets/custom_movie_builder.dart';
+import 'package:flicko/presentation/widgets/custom_movie_builder.dart';
 
 
 class MovieList extends StatelessWidget {

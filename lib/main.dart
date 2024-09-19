@@ -1,17 +1,24 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flicko/views/profile_view.dart';
+import 'package:flicko/cubit/movie_cubit.dart';
+import 'package:flicko/presentation/views/categories_view.dart';
+import 'package:flicko/presentation/views/forgot_password_view.dart';
+import 'package:flicko/presentation/views/movie_details_view.dart';
+import 'package:flicko/presentation/views/movie_view.dart';
+import 'package:flicko/presentation/views/onboarding_screen.dart';
+import 'package:flicko/presentation/views/profile_view.dart';
+import 'package:flicko/presentation/views/recommendation_view.dart';
+import 'package:flicko/presentation/views/sign_in_view.dart';
+import 'package:flicko/presentation/views/sign_up_view.dart';
+import 'package:flicko/presentation/views/view_all_view.dart';
+import 'package:flicko/presentation/views/watch_list_view.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
-import 'views/categories_view.dart';
-import 'views/forgot_password_view.dart';
-import 'views/movie_details_view.dart';
-import 'views/movie_view.dart';
-import 'views/onboarding_screen.dart';
-import 'views/recommendation_view.dart';
-import 'views/sign_in_view.dart';
-import 'views/sign_up_view.dart';
+
+
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'views/view_all_view.dart';
-import 'views/watch_list_view.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,26 +57,29 @@ class Flicko extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      routes: {
-        OnBoardingScreen.id: (context) => OnBoardingScreen(),
-        MovieView.id: (context) => const MovieView(),
-        SignInView.id: (context) => const SignInView(),
-        SignUpView.id: (context) => const SignUpView(),
-        ForgotPassword.id: (context) => const ForgotPassword(),
-        MovieDetailsView.id: (context) => const MovieDetailsView(),
-        ViewAllView.id: (context) => const ViewAllView(),
-        CategoriesView.id: (context) => const CategoriesView(),
-        RecommendationView.id: (context) => const RecommendationView(),
-        ProfileView.id: (context) => const ProfileView(),
-        WatchListView.id: (context) => const WatchListView(),
-      },
-      initialRoute: initialRoute,
+    return BlocProvider(
+      create: (context) => MovieCubit(),
+      child: MaterialApp(
+        useInheritedMediaQuery: true,
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark(),
+        routes: {
+          OnBoardingScreen.id: (context) => OnBoardingScreen(),
+          MovieView.id: (context) => const MovieView(),
+          SignInView.id: (context) => const SignInView(),
+          SignUpView.id: (context) => const SignUpView(),
+          ForgotPassword.id: (context) => const ForgotPassword(),
+          MovieDetailsView.id: (context) => const MovieDetailsView(),
+          ViewAllView.id: (context) => const ViewAllView(),
+          CategoriesView.id: (context) => const CategoriesView(),
+          RecommendationView.id: (context) => const RecommendationView(),
+          ProfileView.id: (context) => const ProfileView(),
+          WatchListView.id: (context) => const WatchListView(),
+        },
+        initialRoute: initialRoute,
+      ),
     );
   }
 }

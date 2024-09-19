@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import '../constants.dart';
 import 'custom_cached_network_image.dart';
 
 class CustomCarouselSlider extends StatelessWidget {
@@ -71,7 +70,6 @@ class CustomCarouselSlider extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 20),
-        // "Now Showing" Text at the Top
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
@@ -85,14 +83,13 @@ class CustomCarouselSlider extends StatelessWidget {
                 Shadow(
                   offset: const Offset(2, 2),
                   blurRadius: 4,
-                  color: Colors.black.withOpacity(0.5),
+                  color:
+                      const Color.fromARGB(255, 26, 97, 183).withOpacity(0.8),
                 ),
               ],
             ),
           ),
         ),
-        const SizedBox(height: 10),
-        // Carousel Slider
         SizedBox(
           height: screenHeight * 0.4,
           width: screenWidth,
@@ -100,7 +97,7 @@ class CustomCarouselSlider extends StatelessWidget {
             itemCount: movieNames.length,
             itemBuilder: (context, index, realIndex) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: Stack(
@@ -128,8 +125,8 @@ class CustomCarouselSlider extends StatelessWidget {
                       ),
 
                       Positioned(
-                        bottom: 15,
-                        left: 15,
+                        bottom: 10,
+                        left: 10,
                         child: Row(
                           children: [
                             Icon(

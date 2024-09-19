@@ -1,26 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import '../constants.dart';
+import 'package:flicko/constants.dart';
+import 'forgot_password_view.dart';
 import 'movie_view.dart';
-import 'sign_in_view.dart';
+import 'sign_up_view.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_snack_bar.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/other_sign_in_options.dart';
 import '../widgets/sign_in_with_google.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-class SignUpView extends StatefulWidget {
-  static String id = 'signUpView';
+class SignInView extends StatefulWidget {
+  static String id = 'signInView';
 
-  const SignUpView({super.key});
+  const SignInView({super.key});
 
   @override
-  State<SignUpView> createState() => _SignUpViewState();
+  State<SignInView> createState() => _SignInViewState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
+class _SignInViewState extends State<SignInView> {
   bool isLoading = false;
   final formKey = GlobalKey<FormState>();
   String? email;
@@ -46,12 +47,12 @@ class _SignUpViewState extends State<SignUpView> {
                   children: [
                     SizedBox(height: screenHeight * 0.001),
                     SvgPicture.asset(
-                      'assets/images/sign_up.svg',
+                      'assets/images/sign_in.svg',
                       height: screenHeight * 0.22,
                     ),
                     SizedBox(height: screenHeight * 0.015),
                     Text(
-                      'Welcome To Flicko',
+                      'Welcome Back',
                       style: TextStyle(
                         color: kSecondaryColor,
                         fontSize: screenHeight * 0.03,
@@ -60,7 +61,7 @@ class _SignUpViewState extends State<SignUpView> {
                       ),
                     ),
                     Text(
-                      'Sign Up To Get Started',
+                      'Please Sign In',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: screenHeight * 0.022,
@@ -68,7 +69,7 @@ class _SignUpViewState extends State<SignUpView> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.015),
+                    SizedBox(height: screenHeight * 0.01),
                     CustomFormTextField(
                       onChanged: (value) {
                         email = value;
@@ -76,7 +77,7 @@ class _SignUpViewState extends State<SignUpView> {
                       hint: 'Enter Your Email',
                       obscureText: false,
                       text: 'Email',
-                      isSignup: true,
+                      isSignup: false,
                     ),
                     SizedBox(height: screenHeight * 0.01),
                     CustomFormTextField(
@@ -86,11 +87,29 @@ class _SignUpViewState extends State<SignUpView> {
                       hint: 'Enter Your Password',
                       obscureText: isObscured,
                       text: 'Password',
-                      isSignup: true,
+                      isSignup: false,
                     ),
-                    SizedBox(height: screenHeight * 0.04),
+                    SizedBox(height: screenHeight * 0.001),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, ForgotPassword.id);
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 173, 169, 169),
+                            fontSize: screenHeight * 0.018,
+                            fontFamily: 'figtree',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.005),
                     CustomButton(
-                      text: 'Sign Up',
+                      text: 'Sign In',
                       color1: kSecondaryColor,
                       color2: kSecondaryColor,
                       txtColor: Colors.white,
@@ -101,29 +120,29 @@ class _SignUpViewState extends State<SignUpView> {
                             isLoading = true;
                           });
                           try {
-                            await SignUpNewUser();
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                MovieView.id, (route) => false);
-                          } on FirebaseAuthException catch (e) {
-                            if (e.code == 'weak-password') {
-                              ShowSnackBar(
-                                  context,
-                                  'The password provided is too weak.',
-                                  Colors.redAccent,
-                                  Icons.error);
-                            } else if (e.code == 'email-already-in-use') {
-                              ShowSnackBar(
-                                  context,
-                                  'The account already exists.',
-                                  Colors.blueAccent,
-                                  Icons.email);
+                            final credential = await SignInUser();
+                            if (credential != null) {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  MovieView.id, (route) => false);
                             } else {
-                              ShowSnackBar(
-                                  context,
-                                  'An error occurred. Please try again.',
-                                  Colors.red,
-                                  Icons.error);
+                              ShowSnackBar(context, 'Sign in failed.',
+                                  Colors.red, Icons.error);
+                              setState(() {
+                                isLoading = false;
+                              });
+                              return;
                             }
+                          } on FirebaseAuthException catch (e) {
+                            String message;
+                            if (e.code == 'user-not-found') {
+                              message = 'No user found for that email.';
+                            } else if (e.code == 'wrong-password') {
+                              message = 'Invalid login credentials.';
+                            } else {
+                              message = 'An error occurred. Please try again.';
+                            }
+                            ShowSnackBar(
+                                context, message, Colors.red, Icons.error);
                           } finally {
                             setState(() {
                               isLoading = false;
@@ -190,7 +209,7 @@ class _SignUpViewState extends State<SignUpView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Already Have An Account?',
+                          'Don\'t Have An Account?',
                           style: TextStyle(
                             color: const Color.fromARGB(255, 173, 169, 169),
                             fontSize: screenHeight * 0.018,
@@ -199,10 +218,10 @@ class _SignUpViewState extends State<SignUpView> {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                                SignInView.id, (route) => false);
+                                SignUpView.id, (route) => false);
                           },
                           child: Text(
-                            'Sign In',
+                            'Sign Up',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: screenHeight * 0.018,
@@ -225,10 +244,8 @@ class _SignUpViewState extends State<SignUpView> {
     );
   }
 
-  Future<UserCredential> SignUpNewUser() async {
-    return await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: email!,
-      password: password!,
-    );
+  Future<UserCredential> SignInUser() async {
+    return await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email!, password: password!);
   }
 }

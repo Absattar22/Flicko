@@ -1,4 +1,4 @@
-import '../models/categories_model.dart';
+import '../../models/categories_model.dart';
 import 'custom_category.dart';
 import 'package:flutter/material.dart';
 

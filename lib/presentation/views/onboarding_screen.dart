@@ -1,4 +1,5 @@
-import '../constants.dart';
+import 'package:flicko/constants.dart';
+
 import 'intro_views.dart';
 import 'sign_in_view.dart';
 import 'package:flutter/material.dart';

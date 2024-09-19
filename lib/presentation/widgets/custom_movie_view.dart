@@ -13,7 +13,7 @@ class CustomMovieView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.asset(
+        Image.network(
           img,
           width: screenWidth > 700 ? screenWidth * 0.40 : screenWidth * 0.48,
           height:

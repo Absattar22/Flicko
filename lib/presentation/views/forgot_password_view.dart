@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import '../constants.dart';
+import 'package:flicko/constants.dart';
 import 'sign_in_view.dart';
 import 'package:flutter/material.dart';
 
@@ -93,13 +93,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 filled: true,
                 fillColor: Color.fromARGB(255, 30, 30, 30),
               ),
+              cursorColor: kPrimaryColor,
             ),
           ),
           const SizedBox(
             height: 20,
           ),
-
-          // Reset Button
           Center(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(

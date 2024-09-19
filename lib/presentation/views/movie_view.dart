@@ -1,11 +1,12 @@
-import 'package:flicko/views/profile_view.dart';
+import 'package:flicko/constants.dart';
+import 'package:flicko/presentation/views/profile_view.dart';
 import 'categories_view.dart';
 import 'home_view.dart';
 import 'recommendation_view.dart';
 import 'watch_list_view.dart';
 import '../widgets/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import '../constants.dart';
+
 
 class MovieView extends StatefulWidget {
   const MovieView({super.key});
