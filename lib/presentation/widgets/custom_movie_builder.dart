@@ -1,7 +1,6 @@
 import 'package:flicko/constants.dart';
 import 'package:flicko/models/movie_model.dart';
 import 'package:flicko/presentation/views/movie_details_view.dart';
-import 'package:flicko/presentation/views/view_all_view.dart';
 import 'package:flicko/presentation/widgets/custom_movie_view.dart';
 import 'package:flutter/material.dart';
 
@@ -87,7 +86,14 @@ class _CustomMovieViewBuilderState extends State<CustomMovieViewBuilder> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, MovieDetailsView.id);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MovieDetailsView(
+                             movieId: widget.movies[index].id,
+                          ),
+                        ),
+                      );
                     },
                     child: CustomMovieView(
                       img: widget.movies[index].fullImageUrl(),

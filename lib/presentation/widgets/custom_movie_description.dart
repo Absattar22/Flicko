@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CustomMovieDescription extends StatelessWidget {
-  const CustomMovieDescription({super.key}); 
-
+  const CustomMovieDescription({super.key , required this.description } ); 
+ final String description;
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
+    return  Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Description:',
             style: TextStyle(
               color: Colors.white,
@@ -18,10 +18,10 @@ class CustomMovieDescription extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(
-            'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.',
-            style: TextStyle(
+            description,
+            style: const TextStyle(
               color: Colors.grey,
               fontSize: 16,
               fontStyle: FontStyle.italic,

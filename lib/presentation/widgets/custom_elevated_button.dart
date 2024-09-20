@@ -8,18 +8,21 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
         backgroundColor: kSecondaryColor,
-        textStyle: const TextStyle(
-          fontSize: 14,
+        textStyle: TextStyle(
+          fontSize: screenWidth > 400 ? 14 : 12,
           fontWeight: FontWeight.bold,
         ),
       ),
       child: Text(title,
           style: const TextStyle(
             color: Colors.white,
+            fontWeight: FontWeight.bold,
           )),
     );
   }
