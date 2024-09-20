@@ -34,7 +34,6 @@ dependencies:
   carousel_slider: ^5.0.0
   cupertino_icons: ^1.0.8
   device_preview: ^1.2.0
-  dio: ^5.7.0
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
   flutter:
@@ -44,6 +43,8 @@ dependencies:
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
   google_sign_in: ^6.2.1
+  http: ^1.2.2
+  meta: ^1.15.0
   modal_progress_hud_nsn: ^0.5.1
   shared_preferences: ^2.3.2
   smooth_page_indicator: ^1.2.0+3
