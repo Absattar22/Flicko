@@ -9,8 +9,9 @@ final class MovieDetailsLoading extends MovieDetailsState {}
 
 final class MovieDetailsLoaded extends MovieDetailsState {
   final Movie movie;
+  final List<Backdrop> backdrop;
 
-  MovieDetailsLoaded(this.movie);
+  MovieDetailsLoaded(this.movie , this.backdrop);
 }
 
 final class MovieDetailsError extends MovieDetailsState {

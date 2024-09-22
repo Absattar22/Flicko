@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flicko/data/api.dart';
+import 'package:flicko/models/images_model.dart';
 import 'package:flicko/models/movie_model.dart';
 import 'package:meta/meta.dart';
 
@@ -12,7 +13,9 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   emit(MovieDetailsLoading());
   try {
     final movie = await ApiService().fetchMovieDetails(movieId);
-    emit(MovieDetailsLoaded(movie));
+    final images = await ApiService().fetchMovieImages(movieId);
+    emit(MovieDetailsLoaded(movie , images));
+    
   } catch (e) {
     print('Error fetching movie details: $e');  // Debug log
     emit(MovieDetailsError('Failed to load movie details: $e'));
