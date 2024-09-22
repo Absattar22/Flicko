@@ -1,12 +1,20 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flicko/constants.dart';
-import 'package:flicko/models/movie_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flicko/models/movie_model.dart';
+import 'package:flicko/constants.dart';
 
 class CustomCarouselSlider extends StatefulWidget {
-  const CustomCarouselSlider({super.key, required this.movies});
+  const CustomCarouselSlider({
+    super.key,
+    required this.movies,
+    required this.onTap,
+  });
+
   final List<Movie> movies;
+  final void Function(int movieId) onTap;
 
   @override
   State<CustomCarouselSlider> createState() => _CustomCarouselSliderState();
@@ -34,8 +42,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
                 Shadow(
                   offset: const Offset(2, 2),
                   blurRadius: 4,
-                  color:
-                      const Color.fromARGB(255, 26, 97, 183).withOpacity(0.8),
+                  color: const Color.fromARGB(255, 26, 97, 183).withOpacity(0.8),
                 ),
               ],
             ),
@@ -47,88 +54,82 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
             height: screenHeight * 0.4,
             width: screenWidth * 0.9,
             child: CarouselSlider.builder(
-              itemCount: 20,
+              itemCount: widget.movies.length,
               itemBuilder: (context, index, realIndex) {
                 final movie = widget.movies[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                          height: screenHeight > 800
-                              ? screenHeight * 0.5
-                              : screenHeight * 0.6,
-                          width: screenWidth > 600
-                              ? screenWidth * 0.4
-                              : screenWidth * 0.6,
-                          child: CachedNetworkImage(
-                            imageUrl: movie.fullImageUrl(),
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => Center(
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    kSecondaryColor),
-                              )),
-                            ),
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Colors.transparent,
-                                  Colors.black.withOpacity(0.7),
-                                ],
+                return GestureDetector(
+                  onTap: () => widget.onTap(movie.id),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            height: screenHeight > 800 ? screenHeight * 0.5 : screenHeight * 0.6,
+                            width: screenWidth > 600 ? screenWidth * 0.4 : screenWidth * 0.6,
+                            child: CachedNetworkImage(
+                              imageUrl: movie.fullImageUrl(),
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Center(
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(kSecondaryColor),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          left: 10,
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.play_circle_filled,
-                                color: Colors.white,
-                                size: screenWidth * 0.06,
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                movie.title,
-                                style: TextStyle(
-                                  fontSize: screenWidth * 0.035,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  shadows: [
-                                    Shadow(
-                                      offset: const Offset(0, 4),
-                                      blurRadius: 4,
-                                      color: const Color.fromARGB(255, 0, 0, 0)
-                                          .withOpacity(0.8),
-                                    ),
+                          Positioned.fill(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.black.withOpacity(0.7),
                                   ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ],
+                          Positioned(
+                            bottom: 10,
+                            left: 10,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.play_circle_filled,
+                                  color: Colors.white,
+                                  size: screenWidth * 0.06,
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  movie.title,
+                                  style: TextStyle(
+                                    fontSize: screenWidth * 0.035,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    shadows: [
+                                      Shadow(
+                                        offset: const Offset(0, 4),
+                                        blurRadius: 4,
+                                        color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
               },
               options: CarouselOptions(
                 autoPlay: true,
-                height: screenHeight > 900
-                    ? screenHeight * 0.5
-                    : screenHeight * 0.55,
+                height: screenHeight > 900 ? screenHeight * 0.5 : screenHeight * 0.55,
                 viewportFraction: screenWidth > 600 ? 0.55 : 0.7,
                 enlargeCenterPage: true,
                 autoPlayInterval: const Duration(seconds: 3),
