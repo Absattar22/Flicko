@@ -10,16 +10,14 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   MovieDetailsCubit() : super(MovieDetailsInitial());
 
   fetchMovieDetails(int movieId) async {
-  emit(MovieDetailsLoading());
-  try {
-    final movie = await ApiService().fetchMovieDetails(movieId);
-    final images = await ApiService().fetchMovieImages(movieId);
-    emit(MovieDetailsLoaded(movie , images));
-    
-  } catch (e) {
-    print('Error fetching movie details: $e');  // Debug log
-    emit(MovieDetailsError('Failed to load movie details: $e'));
+    emit(MovieDetailsLoading());
+    try {
+      final movie = await ApiService().fetchMovieDetails(movieId);
+      final images = await ApiService().fetchMovieImages(movieId);
+      final similarMovies = await ApiService().fetchSimilarMovies(movieId);
+      emit(MovieDetailsLoaded(movie, images, similarMovies));
+    } catch (e) {
+      emit(MovieDetailsError('Failed to load movie details: $e'));
+    }
   }
-}
-
 }
