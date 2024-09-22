@@ -1,7 +1,8 @@
-import 'dart:math';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flicko/cubit/movieDetailsCubit/movie_details_cubit.dart';
 import 'package:flicko/cubit/pobularMoviesCubit/popular_movies_cubit.dart';
+import 'package:flicko/presentation/views/movie_details_view.dart';
+import 'package:flicko/presentation/views/view_all_popular_movies_view.dart';
+import 'package:flicko/presentation/views/view_all_top_rated_movies_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flicko/constants.dart';
@@ -11,8 +12,6 @@ import 'package:flicko/data/api.dart';
 import 'package:flicko/models/movie_model.dart';
 import 'package:flicko/presentation/widgets/custom_carousel_slider.dart';
 import 'package:flicko/presentation/widgets/custom_movie_builder.dart';
-import 'categories_view.dart';
-import 'movie_details_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -27,6 +26,7 @@ class _HomeViewState extends State<HomeView> {
   List<Movie> searchResults = [];
   bool isLoading = false;
   bool isSearching = false;
+  final List<Movie> movie = [];
 
   @override
   void dispose() {
@@ -63,10 +63,14 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void onMovieTap(Movie movie) {
-    Navigator.pushNamed(
+    Navigator.push(
       context,
-      MovieDetailsView.id,
-      arguments: movie,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => MovieDetailsCubit()..fetchMovieDetails(movie.id),
+          child: MovieDetailsView(movieId: movie.id),
+        ),
+      ),
     );
   }
 
@@ -169,6 +173,8 @@ class _HomeViewState extends State<HomeView> {
                                     return Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         CircularProgressIndicator(
                                           color: kSecondaryColor,
@@ -183,11 +189,25 @@ class _HomeViewState extends State<HomeView> {
                                     );
                                   }
                                   if (state is NowPlayingMoviesLoaded) {
-                                    return GestureDetector(
-                                      onTap: () => Navigator.pushNamed(
-                                          context, CategoriesView.id),
-                                      child: CustomCarouselSlider(
-                                          movies: state.movies),
+                                    return CustomCarouselSlider(
+                                      movies: state.movies,
+                                      onTap: (movieId) {
+                                        print(
+                                            'movie id: $movieId'); // This should print the movie ID
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BlocProvider(
+                                              create: (context) =>
+                                                  MovieDetailsCubit()
+                                                    ..fetchMovieDetails(
+                                                        movieId),
+                                              child: MovieDetailsView(
+                                                  movieId: movieId),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     );
                                   }
                                   return const SizedBox();
@@ -200,9 +220,13 @@ class _HomeViewState extends State<HomeView> {
                                     return Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        CircularProgressIndicator(
-                                          color: kSecondaryColor,
+                                        Center(
+                                          child: CircularProgressIndicator(
+                                            color: kSecondaryColor,
+                                          ),
                                         ),
                                       ],
                                     );
@@ -215,10 +239,33 @@ class _HomeViewState extends State<HomeView> {
                                   }
                                   if (state is TopRatedMoviesLoaded) {
                                     return CustomMovieViewBuilder(
+                                      onTap: () {
+                                        print(
+                                            'movie id: ${state.movies.first.id}');
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BlocProvider(
+                                              create: (context) =>
+                                                  MovieDetailsCubit()
+                                                    ..fetchMovieDetails(
+                                                        state.movies.first.id),
+                                              child: MovieDetailsView(
+                                                  movieId:
+                                                      state.movies.first.id),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                       title: 'Top Rated',
                                       movies: state.movies,
-                                      onPressed: () => Navigator.pushNamed(
-                                          context, CategoriesView.id),
+                                      onPressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ViewAllTopRatedMoviesView(),
+                                        ),
+                                      ),
                                     );
                                   }
                                   return const SizedBox();
@@ -245,10 +292,31 @@ class _HomeViewState extends State<HomeView> {
                                   }
                                   if (state is PopularMoviesLoaded) {
                                     return CustomMovieViewBuilder(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BlocProvider(
+                                              create: (context) =>
+                                                  MovieDetailsCubit()
+                                                    ..fetchMovieDetails(
+                                                        state.movies.first.id),
+                                              child: MovieDetailsView(
+                                                  movieId:
+                                                      state.movies.first.id),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                       title: 'Popular',
                                       movies: state.movies,
-                                      onPressed: () => Navigator.pushNamed(
-                                          context, CategoriesView.id),
+                                      onPressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ViewAllPopularMoviesView(),
+                                        ),
+                                      ),
                                     );
                                   }
                                   return const SizedBox();
@@ -268,7 +336,20 @@ class _HomeViewState extends State<HomeView> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  onTap: () => onMovieTap(movie),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => BlocProvider(
+                                          create: (context) =>
+                                              MovieDetailsCubit()
+                                                ..fetchMovieDetails(movie.id),
+                                          child: MovieDetailsView(
+                                              movieId: movie.id),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                           ],
