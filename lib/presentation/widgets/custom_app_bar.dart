@@ -1,9 +1,10 @@
 import '../../constants.dart';
-import 'custom_log_out.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  const CustomAppBar({super.key , required this.title1 , required this.title2});
+
+  final String title1 , title2;
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +14,14 @@ class CustomAppBar extends StatelessWidget {
       centerTitle: true,
       title: Text.rich(
         TextSpan(
-          text: 'Fli',
+          text: title1,
           style: TextStyle(
             fontSize: screenHeight * 0.022,
             fontWeight: FontWeight.bold,
           ),
           children: [
             TextSpan(
-              text: 'cko',
+              text: title2,
               style: TextStyle(
                 fontSize: screenHeight * 0.022,
                 color: kSecondaryColor,
@@ -30,9 +31,6 @@ class CustomAppBar extends StatelessWidget {
           ],
         ),
       ),
-      actions: const [
-        CustomLogOut(),
-      ],
     );
   }
 }
