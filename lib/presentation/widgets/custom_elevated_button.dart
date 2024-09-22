@@ -10,20 +10,23 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        backgroundColor: kSecondaryColor,
-        textStyle: TextStyle(
-          fontSize: screenWidth > 400 ? 14 : 12,
-          fontWeight: FontWeight.bold,
+    return Container(
+      width: screenWidth > 500 ? screenWidth * 0.2 : screenWidth * 0.25,
+      height: screenHeight > 900 ? screenHeight * 0.04 : screenHeight * 0.035,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: kSecondaryColor,
+      ),
+      child: Center(
+        child: Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: screenHeight * 0.02,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
-      child: Text(title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          )),
     );
   }
 }
