@@ -14,7 +14,8 @@ class PopularMoviesCubit extends Cubit<PopularMoviesState> {
       final movies = await ApiService().fetchPopularMovies();
       emit(PopularMoviesLoaded(movies));
     } catch (e) {
-      emit(PopularMoviesError('Failed to load popular movies'));
+      emit(PopularMoviesError('Failed to load popular movies') );
+      print('Error fetching popular movies: $e');  // Debug log
     }
   }
 }
