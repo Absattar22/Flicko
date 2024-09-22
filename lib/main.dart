@@ -1,14 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flicko/presentation/views/categories_view.dart';
 import 'package:flicko/presentation/views/forgot_password_view.dart';
-import 'package:flicko/presentation/views/movie_details_view.dart';
 import 'package:flicko/presentation/views/movie_view.dart';
 import 'package:flicko/presentation/views/onboarding_screen.dart';
 import 'package:flicko/presentation/views/profile_view.dart';
 import 'package:flicko/presentation/views/recommendation_view.dart';
 import 'package:flicko/presentation/views/sign_in_view.dart';
 import 'package:flicko/presentation/views/sign_up_view.dart';
-import 'package:flicko/presentation/views/view_all_view.dart';
 import 'package:flicko/presentation/views/watch_list_view.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,12 +60,11 @@ class Flicko extends StatelessWidget {
         SignInView.id: (context) => const SignInView(),
         SignUpView.id: (context) => const SignUpView(),
         ForgotPassword.id: (context) => const ForgotPassword(),
-        MovieDetailsView.id: (context) => const MovieDetailsView(),
-        ViewAllView.id: (context) => const ViewAllView(),
         CategoriesView.id: (context) => const CategoriesView(),
         RecommendationView.id: (context) => const RecommendationView(),
         ProfileView.id: (context) => const ProfileView(),
         WatchListView.id: (context) => const WatchListView(),
+        
       },
       initialRoute: initialRoute,
     );
