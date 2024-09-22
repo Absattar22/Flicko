@@ -6,33 +6,45 @@ class MovieAttributeBuilder extends StatelessWidget {
       {super.key,
       required this.language,
       required this.date,
-      required this.duration});
+      required this.duration,
+      required this.rating});
 
-  final String language, date;
+  final String language, date, rating;
   final String duration;
+
+  String formatDuration(String durationInMinutes) {
+    int totalMinutes = int.tryParse(durationInMinutes) ?? 0;
+    int hours = totalMinutes ~/ 60;
+    int minutes = totalMinutes % 60;
+    return hours > 0 ? '${hours}h ${minutes}m' : '$minutes min';
+  }
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+      padding: EdgeInsets.only(
+        left: screenWidth * 0.03,
+        right: screenWidth * 0.03,
+        bottom: screenHeight * 0.025,
+        top: screenHeight * 0.010,
+      ),
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomMovieAttribute(title: 'Duration', value: '$duration min'),
-              const SizedBox(width: 40),
-              CustomMovieAttribute(title: 'Language', value: language),
-              const SizedBox(width: 40),
-              const CustomMovieAttribute(title: 'Rating', value: 'PG-13'),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
+              CustomMovieAttribute(
+                title: 'Duration',
+                value: formatDuration(duration),
+              ),
+              CustomMovieAttribute(title: 'Rating', value: '$rating/10'),
               CustomMovieAttribute(title: 'Release Date', value: date),
-              const SizedBox(width: 40),
-              const CustomMovieAttribute(
-                  title: 'Director', value: 'Christopher Nolan'),
+              CustomMovieAttribute(
+                title: 'Language',
+                value: language.toUpperCase(),
+              ),
             ],
           ),
         ],
