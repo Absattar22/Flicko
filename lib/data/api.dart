@@ -1,8 +1,8 @@
 // api_service.dart
 import 'dart:convert';
+import 'package:flicko/models/images_model.dart';
 import 'package:flicko/models/movie_model.dart';
 import 'package:http/http.dart' as http;
-
 
 class ApiService {
   final String apiKey = '';
@@ -13,7 +13,9 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      final List<Movie> movies = (data['results'] as List).map((movie) => Movie.fromJson(movie)).toList();
+      final List<Movie> movies = (data['results'] as List)
+          .map((movie) => Movie.fromJson(movie))
+          .toList();
       return movies;
     } else {
       throw Exception('Failed to load popular movies');
@@ -26,7 +28,9 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      final List<Movie> movies = (data['results'] as List).map((movie) => Movie.fromJson(movie)).toList();
+      final List<Movie> movies = (data['results'] as List)
+          .map((movie) => Movie.fromJson(movie))
+          .toList();
       return movies;
     } else {
       throw Exception('Failed to load top-rated movies');
@@ -34,24 +38,31 @@ class ApiService {
   }
 
   Future<List<Movie>> fetchNowPlayingMovies() async {
-    final url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=$apiKey';
+    final url =
+        'https://api.themoviedb.org/3/movie/now_playing?api_key=$apiKey';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      final List<Movie> movies = (data['results'] as List).map((movie) => Movie.fromJson(movie)).toList();
+      final List<Movie> movies = (data['results'] as List)
+          .map((movie) => Movie.fromJson(movie))
+          .toList();
       return movies;
     } else {
       throw Exception('Failed to load now playing movies');
     }
   }
+
   Future<List<Movie>> searchMovies(String query) async {
-    final url = 'https://api.themoviedb.org/3/search/movie?api_key=$apiKey&query=$query';
+    final url =
+        'https://api.themoviedb.org/3/search/movie?api_key=$apiKey&query=$query';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      final List<Movie> movies = (data['results'] as List).map((movie) => Movie.fromJson(movie)).toList();
+      final List<Movie> movies = (data['results'] as List)
+          .map((movie) => Movie.fromJson(movie))
+          .toList();
       return movies;
     } else {
       throw Exception('Failed to search movies');
@@ -69,4 +80,38 @@ class ApiService {
       throw Exception('Failed to load movie details');
     }
   }
+
+  Future<List<Backdrop>> fetchMovieImages(int movieId) async {
+    final url =
+        'https://api.themoviedb.org/3/movie/$movieId/images?api_key=$apiKey';
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final List<Backdrop> images = (data['backdrops'] as List)
+          .map((image) => Backdrop.fromJson(image))
+          .toList();
+      return images;
+    } else {
+      throw Exception('Failed to load movie images');
+    }
+  }
+
+  Future<List<Movie>> fetchSimilarMovies(int movieId) async {
+    final url =
+        'https://api.themoviedb.org/3/movie/$movieId/recommendations?api_key=$apiKey';
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final List<Movie> movies = (data['results'] as List)
+          .map((movie) => Movie.fromJson(movie))
+          .toList();
+      return movies;
+    } else {
+      throw Exception('Failed to load similar movies');
+    }
+  }
+
+   
 }
