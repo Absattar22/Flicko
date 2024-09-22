@@ -1,4 +1,3 @@
-// movie_list.dart
 import 'package:flicko/models/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flicko/presentation/widgets/custom_movie_builder.dart';
@@ -9,16 +8,19 @@ class MovieList extends StatelessWidget {
   final int count;
 
   final void Function() onPressed;
+  final void Function() onTap;
 
-  const MovieList(
-      {super.key,
-      required this.movies,
-      required this.title,
-      required this.img,
-      required this.movieTitle,
-      required this.rating,
-      required this.count,
-      required this.onPressed});
+  const MovieList({
+    super.key,
+    required this.movies,
+    required this.title,
+    required this.img,
+    required this.movieTitle,
+    required this.rating,
+    required this.count,
+    required this.onPressed,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class MovieList extends StatelessWidget {
                         title: title,
                         movies: movies,
                         onPressed: onPressed,
+                        onTap: onTap,
                       );
                     },
                   ),
