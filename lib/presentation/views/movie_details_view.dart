@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flicko/presentation/widgets/custom_movie_recommendation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,8 +13,8 @@ class MovieDetailsView extends StatefulWidget {
   final int movieId;
   final List<int>? movieIds;
 
-static const String id = 'movieDetailsView';
-  const MovieDetailsView({super.key, required this.movieId ,  this.movieIds});
+  static const String id = 'movieDetailsView';
+  const MovieDetailsView({super.key, required this.movieId, this.movieIds});
 
   @override
   State<MovieDetailsView> createState() => _MovieDetailsViewState();
@@ -43,7 +41,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
             final similarMovies = state.similarMovies;
 
             return Scaffold(
-              backgroundColor: const Color.fromARGB(255, 8, 0, 17),
+              backgroundColor: kPrimaryColor,
               body: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,17 +71,23 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                     ),
                     SizedBox(height: screenHeight * 0.01),
                     CustomMoviePhotos(
-                      imageUrls: backdrops
-                          .map((backdrop) => backdrop.fullImageUrl())
-                          .take(9)
-                          .toList(),
+                      imageUrls: backdrops.length > 6
+                          ? backdrops
+                              .skip(24)
+                              .take(12)
+                              .map((backdrop) => backdrop.fullImageUrl())
+                              .toList()
+                          : backdrops
+                              .take(6)
+                              .map((backdrop) => backdrop.fullImageUrl())
+                              .toList(),
                     ),
                     SizedBox(height: screenHeight * 0.01),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                       child: Text(
-                        'You may also like:',
+                        'You May Also Like:',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: screenWidth > 500
@@ -94,9 +98,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
                         ),
                       ),
                     ),
-                    CustomMovieRecommendation(
-                      recommendedMovies: similarMovies
-                    )
+                    CustomMovieRecommendation(recommendedMovies: similarMovies)
                   ],
                 ),
               ),
