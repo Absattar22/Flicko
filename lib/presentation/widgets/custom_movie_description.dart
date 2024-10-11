@@ -35,7 +35,7 @@ class CustomMovieDescription extends StatelessWidget {
           ),
           SizedBox(height: screenHeight * 0.02),
           Text(
-            'Photos of the movie:',
+            'Movie Photos:',
             style: TextStyle(
               color: const Color.fromARGB(255, 255, 255, 255),
               fontSize:
