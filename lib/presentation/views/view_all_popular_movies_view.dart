@@ -26,6 +26,7 @@ class ViewAllPopularMoviesViewState extends State<ViewAllPopularMoviesView> {
       create: (context) => LoadAllPopularMoviesCubit()..fetchAllPopularMovies(),
       child: BlocBuilder<LoadAllPopularMoviesCubit, LoadAllPopularMoviesState>(
         builder: (context, state) {
+          print('State: $state'); // Debugging statement
           if (state is LoadAllPopularMoviesLoading) {
             return Center(
               child: CircularProgressIndicator(
@@ -33,150 +34,217 @@ class ViewAllPopularMoviesViewState extends State<ViewAllPopularMoviesView> {
               ),
             );
           }
-          if (state is LoadAllPopularMoviesLoaded) {
-            return Scaffold(
-              backgroundColor: kPrimaryColor,
-              body: CustomScrollView(slivers: [
-                SliverAppBar(
-                  pinned: false,
-                  floating: true,
-                  snap: true,
-                  expandedHeight: screenHeight * 0.01,
-                  flexibleSpace: const FlexibleSpaceBar(
-                    centerTitle: true,
-                    background: CustomAppBar(
-                      title1: 'Popu',
-                      title2: 'lar',
-                    ),
-                  ),
+
+          if (state is LoadAllPopularMoviesLoaded ||
+              state is LoadAllPopularMoviesPaginationLoading) {
+            final movies = state is LoadAllPopularMoviesLoaded
+                ? state.movies
+                : (state as LoadAllPopularMoviesPaginationLoading).movies;
+
+            if (movies.isEmpty) {
+              return const Center(
+                child: Text(
+                  'No movies available',
+                  style: TextStyle(color: Colors.white),
                 ),
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  sliver: SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.65,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
+              );
+            }
+
+            return NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                if (notification.metrics.extentAfter == 0) {
+                  LoadAllPopularMoviesCubit cubit = BlocProvider.of(context);
+                  cubit.fetchAllPopularMovies(fromPagination: true);
+                }
+
+                return false;
+              },
+              child: Scaffold(
+                backgroundColor: kPrimaryColor,
+                body: CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      scrolledUnderElevation: 0,
+                      pinned: false,
+                      floating: true,
+                      snap: true,
+                      expandedHeight: MediaQuery.of(context).size.height * 0.01,
+                      flexibleSpace: const FlexibleSpaceBar(
+                        centerTitle: true,
+                        background: CustomAppBar(
+                          title1: 'Popu',
+                          title2: 'lar',
+                        ),
+                      ),
                     ),
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final movie = state.movies[index];
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BlocProvider(
-                                  create: (context) => MovieDetailsCubit()
-                                    ..fetchMovieDetails(movie.id),
-                                  child: MovieDetailsView(movieId: movie.id),
+                    SliverPadding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width > 600
+                              ? MediaQuery.of(context).size.width * 0.03
+                              : MediaQuery.of(context).size.width * 0.03,
+                          vertical: MediaQuery.of(context).size.height > 900
+                              ? MediaQuery.of(context).size.height * 0.02
+                              : MediaQuery.of(context).size.height * 0.01),
+                      sliver: SliverGrid(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio:
+                              MediaQuery.of(context).size.width > 600
+                                  ? 0.7
+                                  : 0.65,
+                          crossAxisSpacing:
+                              MediaQuery.of(context).size.width > 600
+                                  ? MediaQuery.of(context).size.width * 0.03
+                                  : MediaQuery.of(context).size.width * 0.02,
+                          mainAxisSpacing:
+                              MediaQuery.of(context).size.width > 600
+                                  ? MediaQuery.of(context).size.width * 0.03
+                                  : MediaQuery.of(context).size.width * 0.025,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            if (index == movies.length) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  CircularProgressIndicator(
+                                    color: kSecondaryColor,
+                                  ),
+                                ],
+                              );
+                            }
+
+                            final movie = movies[index];
+
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BlocProvider(
+                                      create: (context) => MovieDetailsCubit()
+                                        ..fetchMovieDetails(movie.id),
+                                      child:
+                                          MovieDetailsView(movieId: movie.id),
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    color: const Color.fromARGB(
+                                        255, 126, 125, 125),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Stack(
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl: movie.fullImageUrl(),
+                                        height: double.infinity,
+                                        width: double.infinity,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) => Center(
+                                          child: CircularProgressIndicator(
+                                            color: kSecondaryColor,
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error,
+                                                color: Colors.red),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Colors.transparent,
+                                              Colors.black.withOpacity(0.8),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 5,
+                                        left: 10,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              movie.title,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.04,
+                                                fontWeight: FontWeight.bold,
+                                                shadows: [
+                                                  Shadow(
+                                                    offset: const Offset(0, 1),
+                                                    blurRadius: 3,
+                                                    color: Colors.black
+                                                        .withOpacity(0.7),
+                                                  ),
+                                                ],
+                                              ),
+                                              textAlign: TextAlign.center,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const SizedBox(height: 2),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                const Icon(Icons.star,
+                                                    color: Colors.amber,
+                                                    size: 16),
+                                                const SizedBox(width: 5),
+                                                Text(
+                                                  movie.rating
+                                                      .toStringAsFixed(1),
+                                                  style: TextStyle(
+                                                    color: Colors.white70,
+                                                    fontSize:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.03,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey[850],
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.25),
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 8),
-                                ),
-                              ],
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Stack(
-                                children: [
-                                  CachedNetworkImage(
-                                    imageUrl: movie.fullImageUrl(),
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) => Center(
-                                      child: CircularProgressIndicator(
-                                        color: kSecondaryColor,
-                                      ),
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error,
-                                            color: Colors.red),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Colors.transparent,
-                                          Colors.black.withOpacity(0.8),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 10,
-                                    left: 10,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          movie.title,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: fontSize,
-                                            fontWeight: FontWeight.bold,
-                                            shadows: [
-                                              Shadow(
-                                                offset: const Offset(0, 1),
-                                                blurRadius: 3,
-                                                color: Colors.black
-                                                    .withOpacity(0.7),
-                                              ),
-                                            ],
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const SizedBox(height: 2),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            const Icon(Icons.star,
-                                                color: Colors.amber, size: 16),
-                                            const SizedBox(width: 5),
-                                            Text(
-                                              movie.rating.toStringAsFixed(1),
-                                              style: TextStyle(
-                                                color: Colors.white70,
-                                                fontSize: fontSize * 0.8,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      childCount: state.movies.length,
+                          childCount: movies.length +
+                              (state is LoadAllPopularMoviesPaginationLoading
+                                  ? 1
+                                  : 0),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ]),
+              ),
             );
           }
+
           if (state is LoadAllPopularMoviesError) {
             return Center(
               child: Text(
@@ -185,6 +253,7 @@ class ViewAllPopularMoviesViewState extends State<ViewAllPopularMoviesView> {
               ),
             );
           }
+
           return const Center(
             child: Text(
               'No movies available',
