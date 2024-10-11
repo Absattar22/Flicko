@@ -6,16 +6,32 @@ import 'package:meta/meta.dart';
 part 'load_all_popular_movies_state.dart';
 
 class LoadAllPopularMoviesCubit extends Cubit<LoadAllPopularMoviesState> {
+  int page = 1;
+  bool isFetching = false;
+  List<Movie> allMovies = [];
+
   LoadAllPopularMoviesCubit() : super(LoadAllPopularMoviesInitial());
 
-  fetchAllPopularMovies() async {
-    emit(LoadAllPopularMoviesLoading());
+  fetchAllPopularMovies({bool fromPagination = false}) async {
+    if (isFetching) return;
+    isFetching = true;
+
+    if (fromPagination) {
+      emit(LoadAllPopularMoviesPaginationLoading(allMovies));
+    } else {
+      emit(LoadAllPopularMoviesLoading());
+    }
+
     try {
-      final movies = await ApiService().fetchPopularMovies();
-      emit(LoadAllPopularMoviesLoaded(movies));
+      final newMovies = await ApiService().fetchPopularMovies(page: page);
+      allMovies.addAll(newMovies);
+
+      page++;
+      emit(LoadAllPopularMoviesLoaded(allMovies));
     } catch (e) {
       emit(LoadAllPopularMoviesError('Failed to load popular movies'));
+    } finally {
+      isFetching = false;
     }
   }
 }
-

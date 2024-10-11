@@ -7,11 +7,18 @@ final class LoadAllPopularMoviesInitial extends LoadAllPopularMoviesState {}
 
 final class LoadAllPopularMoviesLoading extends LoadAllPopularMoviesState {}
 
+final class LoadAllPopularMoviesPaginationLoading extends LoadAllPopularMoviesState {
+  final List<Movie> movies;
+
+  LoadAllPopularMoviesPaginationLoading(this.movies);
+}
+
 final class LoadAllPopularMoviesLoaded extends LoadAllPopularMoviesState {
   final List<Movie> movies;
 
   LoadAllPopularMoviesLoaded(this.movies);
 }
+
 final class LoadAllPopularMoviesError extends LoadAllPopularMoviesState {
   final String message;
 

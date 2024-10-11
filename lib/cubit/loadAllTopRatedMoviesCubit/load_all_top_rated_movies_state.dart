@@ -7,6 +7,11 @@ final class LoadAllTopRatedMoviesInitial extends LoadAllTopRatedMoviesState {}
 
 final class LoadAllTopRatedMoviesLoading extends LoadAllTopRatedMoviesState {}
 
+final class LoadAllTopRatedMoviesPaginationLoading extends LoadAllTopRatedMoviesState {
+  final List<Movie> movies;
+
+  LoadAllTopRatedMoviesPaginationLoading(this.movies);
+}
 final class LoadAllTopRatedMoviesLoaded extends LoadAllTopRatedMoviesState {
   final List<Movie> movies;
 
