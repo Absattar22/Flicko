@@ -9,18 +9,19 @@ class CustomMoviePhotos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return GridView.builder(
       padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8, 
-        childAspectRatio: 3 / 2,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: screenHeight > 900 ? 4 : 4,
+        crossAxisSpacing: screenWidth > 700 ? 12 : 6,
+        mainAxisSpacing: screenHeight > 900 ? 12 : 6,
+        childAspectRatio: 1.3,
       ),
       itemCount: imageUrls.length,
       shrinkWrap: true, // Take the minimum space required
-      physics:
-          const NeverScrollableScrollPhysics(), // Disable scrolling of the grid
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return Container(
           decoration: BoxDecoration(

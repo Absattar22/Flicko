@@ -20,7 +20,7 @@ class CustomMovieRecommendation extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return SizedBox(
-      height: screenHeight > 900 ? screenHeight * 0.38 : screenHeight * 0.4,
+      height: screenHeight > 900 ? screenHeight * 0.4 : screenHeight * 0.4,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: recommendedMovies.length,

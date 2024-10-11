@@ -42,7 +42,8 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
                 Shadow(
                   offset: const Offset(2, 2),
                   blurRadius: 4,
-                  color: const Color.fromARGB(255, 26, 97, 183).withOpacity(0.8),
+                  color:
+                      const Color.fromARGB(255, 26, 97, 183).withOpacity(0.8),
                 ),
               ],
             ),
@@ -52,7 +53,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
           padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
           child: SizedBox(
             height: screenHeight * 0.4,
-            width: screenWidth * 0.9,
+            width: screenWidth,
             child: CarouselSlider.builder(
               itemCount: widget.movies.length,
               itemBuilder: (context, index, realIndex) {
@@ -60,20 +61,26 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
                 return GestureDetector(
                   onTap: () => widget.onTap(movie.id),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.015),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Stack(
                         children: [
                           SizedBox(
-                            height: screenHeight > 800 ? screenHeight * 0.5 : screenHeight * 0.6,
-                            width: screenWidth > 600 ? screenWidth * 0.4 : screenWidth * 0.6,
+                            height: screenHeight > 800
+                                ? screenHeight * 0.5
+                                : screenHeight * 0.6,
+                            width: screenWidth > 600
+                                ? screenWidth * 0.4
+                                : screenWidth * 0.6,
                             child: CachedNetworkImage(
                               imageUrl: movie.fullImageUrl(),
                               fit: BoxFit.cover,
                               placeholder: (context, url) => Center(
                                 child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(kSecondaryColor),
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      kSecondaryColor),
                                 ),
                               ),
                             ),
@@ -113,7 +120,9 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
                                       Shadow(
                                         offset: const Offset(0, 4),
                                         blurRadius: 4,
-                                        color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0)
+                                                .withOpacity(0.8),
                                       ),
                                     ],
                                   ),
@@ -129,10 +138,12 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
               },
               options: CarouselOptions(
                 autoPlay: true,
-                height: screenHeight > 900 ? screenHeight * 0.5 : screenHeight * 0.55,
-                viewportFraction: screenWidth > 600 ? 0.55 : 0.7,
+                height: screenHeight > 900
+                    ? screenHeight * 0.5
+                    : screenHeight * 0.55,
+                viewportFraction: screenWidth > 600 ? 0.5 : 0.7,
                 enlargeCenterPage: true,
-                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayInterval: const Duration(seconds: 4),
               ),
             ),
           ),

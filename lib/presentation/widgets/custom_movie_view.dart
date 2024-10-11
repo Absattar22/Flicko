@@ -20,15 +20,11 @@ class CustomMovieView extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.white.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 10,
-                offset: const Offset(8, 4), // changes position of shadow
-              ),
-            ],
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(
+              color: const Color.fromARGB(255, 126, 125, 125),
+              width: 1,
+            ),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
@@ -48,7 +44,9 @@ class CustomMovieView extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(
-              top: screenHeight * 0.01, right: screenWidth > 700 ? 40 : 65),
+              top: screenHeight * 0.01,
+              right:
+                  screenWidth > 700 ? screenWidth * 0.06 : screenWidth * 0.15),
           child: SizedBox(
             width: screenWidth * 0.4,
             child: Text(
@@ -56,7 +54,9 @@ class CustomMovieView extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: screenHeight * 0.016,
+                fontSize: screenHeight > 1000
+                    ? screenHeight * 0.02
+                    : screenHeight * 0.015,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Emad',
               ),
@@ -71,13 +71,13 @@ class CustomMovieView extends StatelessWidget {
               color: Colors.yellow.shade700,
               size: 16,
             ),
-            const SizedBox(width: 4),
+            SizedBox(width: screenWidth * 0.01),
             Text(
               rating,
               style: TextStyle(
                 fontSize: screenHeight * 0.017,
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 130, 128, 128),
+                color: const Color.fromARGB(255, 154, 151, 151),
               ),
             ),
           ],
