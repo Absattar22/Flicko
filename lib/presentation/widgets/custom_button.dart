@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({
+  const CustomButton({
     super.key,
     required this.text,
     this.onTap,
@@ -9,20 +9,23 @@ class CustomButton extends StatelessWidget {
     required this.color2,
     required this.txtColor,
     required this.borderColor,
+    this.isLoading = false, // New parameter for loading state
   });
 
-  VoidCallback? onTap;
+  final VoidCallback? onTap;
   final String text;
   final Color color1;
   final Color color2;
   final Color txtColor;
   final Color borderColor;
+  final bool isLoading; 
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
     return GestureDetector(
-      onTap: onTap,
+      onTap: isLoading ? null : onTap, // Disable button when loading
       child: Container(
         width: double.infinity,
         height: screenHeight * 0.06,
@@ -37,14 +40,23 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: txtColor,
-              fontSize: screenHeight * 0.020,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: isLoading
+              ? SizedBox(
+                  height: 24.0,
+                  width: 24.0,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(txtColor),
+                    strokeWidth: 2.0,
+                  ),
+                )
+              : Text(
+                  text,
+                  style: TextStyle(
+                    color: txtColor,
+                    fontSize: screenHeight * 0.020,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         ),
       ),
     );
