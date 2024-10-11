@@ -1,10 +1,14 @@
 import 'package:flicko/constants.dart';
+import 'package:flicko/presentation/views/view_all_recommended_movies.dart';
+import 'package:flicko/presentation/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class RecommendationView extends StatefulWidget {
-  const RecommendationView({super.key});
+  const RecommendationView({super.key, this.id1, this.id2, this.id3});
 
   static const String id = 'recommendationView';
+
+  final int? id1, id2, id3;
 
   @override
   _RecommendationViewState createState() => _RecommendationViewState();
@@ -26,10 +30,34 @@ class _RecommendationViewState extends State<RecommendationView> {
     'Animation',
     'Historical',
     'War',
+    'Documentary',
+    'Musical',
+    'Family',
+    'Western',
   ];
+  Map<String, int> categoryMap = {
+    'Action': 28,
+    'Adventure': 12,
+    'Comedy': 35,
+    'Crime': 80,
+    'Drama': 18,
+    'Horror': 27,
+    'Romance': 10749,
+    'Sci-Fi': 878,
+    'Fantasy': 14,
+    'Thriller': 53,
+    'Mystery': 9648,
+    'Animation': 16,
+    'Historical': 36,
+    'War': 10752,
+    'Documentary': 99,
+    'Musical': 10402,
+    'Family': 10751,
+    'Western': 37,
+  };
   String? selectedCategory1;
   String? selectedCategory2;
-  String? selectedCategory3;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +66,12 @@ class _RecommendationViewState extends State<RecommendationView> {
     return Scaffold(
       backgroundColor: kPrimaryColor,
       appBar: AppBar(
-        title: const Text('Movie Recommendation'),
+        title: const CustomAppBar(
+          title1: 'Recomme',
+          title2: 'ndation',
+        ),
         backgroundColor: kPrimaryColor,
+        elevation: 0,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -50,6 +82,7 @@ class _RecommendationViewState extends State<RecommendationView> {
           children: [
             // First Dropdown
             DropdownButton<String>(
+              dropdownColor: kPrimaryColor,
               value: selectedCategory1,
               hint: const Text('Select Category 1'),
               onChanged: (value) {
@@ -68,6 +101,7 @@ class _RecommendationViewState extends State<RecommendationView> {
             ),
             const SizedBox(height: 16),
             DropdownButton<String>(
+              dropdownColor: kPrimaryColor,
               value: selectedCategory2,
               hint: const Text('Select Category 2'),
               onChanged: (value) {
@@ -86,34 +120,39 @@ class _RecommendationViewState extends State<RecommendationView> {
             ),
             const SizedBox(height: 16),
 
-            DropdownButton<String>(
-              value: selectedCategory3,
-              hint: const Text('Select Category 3'),
-              onChanged: (value) {
-                setState(() {
-                  selectedCategory3 = value;
-                });
-              },
-              isExpanded: true,
-              icon: const Icon(Icons.arrow_downward),
-              items: categories.map((category) {
-                return DropdownMenuItem<String>(
-                  value: category,
-                  child: Text(category),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
-        
+
             ElevatedButton(
               onPressed: () {
                 if (selectedCategory1 != null && selectedCategory2 != null) {
+                  int? categoryId1 = categoryMap[selectedCategory1!];
+                  int? categoryId2 = categoryMap[selectedCategory2!];
+                ;
+
+                 
+                  if (categoryId1 != null && categoryId2 != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ViewAllRecommendedMovies(
+                          categoryId1: categoryId1,
+                          categoryId2: categoryId2,
+                          
+                        ),
+                      ),
+                    );
+                  } else {
+                    // Handle error in case the mapping fails
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Failed to map categories to IDs.'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text(
-                        'Please select at least 2 categories',
-                      ),
+                      content: Text('Please select 2 categories'),
                       duration: Duration(seconds: 2),
                     ),
                   );
