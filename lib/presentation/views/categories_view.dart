@@ -1,4 +1,6 @@
 import 'package:flicko/constants.dart';
+import 'package:flicko/presentation/views/view_all_category_movies.dart';
+import 'package:flicko/presentation/views/view_all_popular_movies_view.dart';
 import '../widgets/custom_category_builder.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +13,19 @@ class CategoriesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColor,
-      body: const CustomCategoryBuilder(),
+      body: CustomCategoryBuilder(
+        onTap: (categoryId, title) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ViewAllCategoryMovies(
+                title: title,
+                categoryId: categoryId,
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
