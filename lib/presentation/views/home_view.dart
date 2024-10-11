@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flicko/cubit/movieDetailsCubit/movie_details_cubit.dart';
 import 'package:flicko/cubit/pobularMoviesCubit/popular_movies_cubit.dart';
 import 'package:flicko/presentation/views/movie_details_view.dart';
@@ -98,7 +99,19 @@ class _HomeViewState extends State<HomeView> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.only(
-                    top: screenHeight * 0.05, left: 16, right: 16),
+                  bottom: screenHeight > 900
+                      ? screenHeight * 0.04
+                      : screenHeight * 0.02,
+                  top: screenHeight > 900
+                      ? screenHeight * 0.04
+                      : screenHeight * 0.04,
+                  right: screenWidth > 800
+                      ? screenWidth * 0.1
+                      : screenWidth * 0.05,
+                  left: screenWidth > 800
+                      ? screenWidth * 0.1
+                      : screenWidth * 0.05,
+                ),
                 child: TextField(
                   controller: searchController,
                   onChanged: searchMovies,
@@ -122,17 +135,18 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     filled: true,
                     fillColor: Colors.white12,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                   ),
                   cursorColor: Colors.white,
                 ),
               ),
             ),
             isLoading
-                ? const SliverFillRemaining(
+                ? SliverFillRemaining(
                     child: Center(
                       child: CircularProgressIndicator(
-                        color: Color.fromARGB(255, 24, 109, 169),
+                        color: kSecondaryColor,
                       ),
                     ),
                   )
@@ -150,11 +164,15 @@ class _HomeViewState extends State<HomeView> {
                                       MediaQuery.of(context).size.height / 4,
                                   fit: BoxFit.cover,
                                 ),
-                                const Text(
+                                Text(
                                   'No results found',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: screenHeight > 800
+                                        ? screenHeight * 0.025
+                                        : screenHeight * 0.015,
+                                    fontFamily: 'Emad',
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],
@@ -170,16 +188,13 @@ class _HomeViewState extends State<HomeView> {
                                   NowPlayingMoviesState>(
                                 builder: (context, state) {
                                   if (state is NowPlayingMoviesLoading) {
-                                    return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        CircularProgressIndicator(
+                                    return SizedBox(
+                                      height: screenHeight * 0.4,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
                                           color: kSecondaryColor,
                                         ),
-                                      ],
+                                      ),
                                     );
                                   }
                                   if (state is NowPlayingMoviesError) {
@@ -192,8 +207,6 @@ class _HomeViewState extends State<HomeView> {
                                     return CustomCarouselSlider(
                                       movies: state.movies,
                                       onTap: (movieId) {
-                                        print(
-                                            'movie id: $movieId'); // This should print the movie ID
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -217,19 +230,20 @@ class _HomeViewState extends State<HomeView> {
                                   TopRatedMoviesState>(
                                 builder: (context, state) {
                                   if (state is TopRatedMoviesLoading) {
-                                    return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Center(
-                                          child: CircularProgressIndicator(
-                                            color: kSecondaryColor,
-                                          ),
-                                        ),
-                                      ],
-                                    );
+                                    return SizedBox(
+                                        height: screenHeight * 0.6,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            CircularProgressIndicator(
+                                              color: kSecondaryColor,
+                                            ),
+                                            CircularProgressIndicator(
+                                              color: kSecondaryColor,
+                                            ),
+                                          ],
+                                        ));
                                   }
                                   if (state is TopRatedMoviesError) {
                                     return Center(
@@ -239,9 +253,8 @@ class _HomeViewState extends State<HomeView> {
                                   }
                                   if (state is TopRatedMoviesLoaded) {
                                     return CustomMovieViewBuilder(
-                                      onTap: () {
-                                        print(
-                                            'movie id: ${state.movies.first.id}');
+                                      movies: state.movies,
+                                      onTap: (movieId) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -249,16 +262,14 @@ class _HomeViewState extends State<HomeView> {
                                               create: (context) =>
                                                   MovieDetailsCubit()
                                                     ..fetchMovieDetails(
-                                                        state.movies.first.id),
+                                                        movieId),
                                               child: MovieDetailsView(
-                                                  movieId:
-                                                      state.movies.first.id),
+                                                  movieId: movieId),
                                             ),
                                           ),
                                         );
                                       },
                                       title: 'Top Rated',
-                                      movies: state.movies,
                                       onPressed: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -275,13 +286,13 @@ class _HomeViewState extends State<HomeView> {
                                   PopularMoviesState>(
                                 builder: (context, state) {
                                   if (state is PopularMoviesLoading) {
-                                    return Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        CircularProgressIndicator(
+                                    return SizedBox(
+                                      height: screenHeight * 0.8,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
                                           color: kSecondaryColor,
                                         ),
-                                      ],
+                                      ),
                                     );
                                   }
                                   if (state is PopularMoviesError) {
@@ -292,7 +303,8 @@ class _HomeViewState extends State<HomeView> {
                                   }
                                   if (state is PopularMoviesLoaded) {
                                     return CustomMovieViewBuilder(
-                                      onTap: () {
+                                      movies: state.movies,
+                                      onTap: (movieId) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -300,16 +312,14 @@ class _HomeViewState extends State<HomeView> {
                                               create: (context) =>
                                                   MovieDetailsCubit()
                                                     ..fetchMovieDetails(
-                                                        state.movies.first.id),
+                                                        movieId),
                                               child: MovieDetailsView(
-                                                  movieId:
-                                                      state.movies.first.id),
+                                                  movieId: movieId),
                                             ),
                                           ),
                                         );
                                       },
                                       title: 'Popular',
-                                      movies: state.movies,
                                       onPressed: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -325,31 +335,65 @@ class _HomeViewState extends State<HomeView> {
                             ],
                             if (isSearching)
                               ...searchResults.map(
-                                (movie) => ListTile(
-                                  leading: movie.posterPath.isNotEmpty
-                                      ? Image.network(
-                                          'https://image.tmdb.org/t/p/w500${movie.posterPath}')
-                                      : null,
-                                  title: Text(
-                                    movie.title,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
+                                (movie) => Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom: screenHeight > 900
+                                        ? screenHeight * 0.004
+                                        : screenHeight * 0.005,
+                                    right: screenWidth > 800
+                                        ? screenWidth * 0.1
+                                        : screenWidth * 0.03,
+                                    left: screenWidth > 800
+                                        ? screenWidth * 0.09
+                                        : screenWidth * 0.02,
                                   ),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => BlocProvider(
-                                          create: (context) =>
-                                              MovieDetailsCubit()
-                                                ..fetchMovieDetails(movie.id),
-                                          child: MovieDetailsView(
-                                              movieId: movie.id),
-                                        ),
+                                  child: ListTile(
+                                    leading: movie.posterPath.isNotEmpty
+                                        ? Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.003),
+                                            child: CachedNetworkImage(
+                                              height: screenHeight > 900
+                                                  ? screenHeight * 0.5
+                                                  : screenHeight * 0.08,
+                                              width: screenWidth > 800
+                                                  ? screenWidth * 0.1
+                                                  : screenWidth * 0.08,
+                                              imageUrl: movie.fullImageUrl(),
+                                              fit: BoxFit.contain,
+                                              placeholder: (context, url) =>
+                                                  Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        color: kSecondaryColor),
+                                              ),
+                                            ),
+                                          )
+                                        : null,
+                                    title: Text(
+                                      movie.title,
+                                      style: const TextStyle(
+                                        color: Colors.white,
                                       ),
-                                    );
-                                  },
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => BlocProvider(
+                                            create: (context) =>
+                                                MovieDetailsCubit()
+                                                  ..fetchMovieDetails(movie.id),
+                                            child: MovieDetailsView(
+                                                movieId: movie.id),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                           ],
