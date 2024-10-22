@@ -27,6 +27,31 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
 
   bool showPassword = false;
 
+  @override
+  void initState() {
+    super.initState();
+    showPassword = !widget.obscureText;
+  }
+
+  WrongPassword(String email, String password) async {
+    try {
+      final cred = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password,
+      );
+      return cred;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return 'Account does not exist';
+      } else if (e.code == 'wrong-password') {
+        return 'Wrong Password';
+      } else if (e.code == 'invalid-email') {
+        return 'Invalid Email';
+      }
+      return false;
+    }
+  }
+
   Future<UserCredential?> signInUser() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -64,37 +89,22 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
     }
   }
 
-  WrongPassword(String email, String password) async {
-    try {
-      final cred = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email.trim(),
-        password: password,
-      );
-      return cred;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        return 'Account does not exist';
-      } else if (e.code == 'wrong-password') {
-        return 'Wrong Password';
-      } else if (e.code == 'invalid-email') {
-        return 'Invalid Email';
-      }
-      return false;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 16, bottom: 8),
+          padding: const EdgeInsets.only(left: 16, bottom: 4),
           child: Text(
             widget.text,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 20,
+              fontSize: 18,
+              fontFamily: 'Emad',
             ),
           ),
         ),
@@ -132,16 +142,15 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
             controller:
                 widget.text == 'Email' ? _emailController : _passwordController,
             onChanged: widget.onChanged,
-            cursorColor: const Color.fromARGB(255, 255, 255, 255),
+            cursorColor: Colors.white,
             autocorrect: true,
-            obscureText: widget.obscureText,
+            obscureText: !showPassword,
             decoration: InputDecoration(
               suffixIcon: widget.text == 'Password'
                   ? IconButton(
                       onPressed: () {
                         setState(() {
                           showPassword = !showPassword;
-                          widget.obscureText = !widget.obscureText;
                         });
                       },
                       icon: Icon(
