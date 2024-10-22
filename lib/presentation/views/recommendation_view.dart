@@ -57,7 +57,6 @@ class _RecommendationViewState extends State<RecommendationView> {
   };
   String? selectedCategory1;
   String? selectedCategory2;
- 
 
   @override
   Widget build(BuildContext context) {
@@ -120,15 +119,12 @@ class _RecommendationViewState extends State<RecommendationView> {
             ),
             const SizedBox(height: 16),
 
-
             ElevatedButton(
               onPressed: () {
                 if (selectedCategory1 != null && selectedCategory2 != null) {
                   int? categoryId1 = categoryMap[selectedCategory1!];
                   int? categoryId2 = categoryMap[selectedCategory2!];
-                ;
 
-                 
                   if (categoryId1 != null && categoryId2 != null) {
                     Navigator.push(
                       context,
@@ -136,7 +132,6 @@ class _RecommendationViewState extends State<RecommendationView> {
                         builder: (context) => ViewAllRecommendedMovies(
                           categoryId1: categoryId1,
                           categoryId2: categoryId2,
-                          
                         ),
                       ),
                     );

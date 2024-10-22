@@ -1,5 +1,5 @@
-import 'package:flicko/models/movie_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flicko/models/movie_model.dart';
 import 'package:flicko/presentation/widgets/custom_movie_builder.dart';
 
 class MovieList extends StatelessWidget {
@@ -8,7 +8,7 @@ class MovieList extends StatelessWidget {
   final int count;
 
   final void Function() onPressed;
-  final void Function() onTap;
+  final void Function(int )? onTap;
 
   const MovieList({
     super.key,

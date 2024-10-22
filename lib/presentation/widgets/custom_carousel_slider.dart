@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +26,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
 
     return Column(
       children: [
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(

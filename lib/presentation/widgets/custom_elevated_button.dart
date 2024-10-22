@@ -11,7 +11,7 @@ class CustomElevatedButton extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      width: screenWidth > 500 ? screenWidth * 0.2 : screenWidth * 0.25,
+      width: screenWidth > 500 ? screenWidth * 0.25 : screenWidth * 0.28,
       height: screenHeight > 900 ? screenHeight * 0.04 : screenHeight * 0.035,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -22,7 +22,9 @@ class CustomElevatedButton extends StatelessWidget {
           title,
           style: TextStyle(
             color: Colors.white,
-            fontSize: screenHeight * 0.02,
+            fontSize: screenHeight > 900
+                ? screenHeight * 0.025
+                : screenHeight * 0.017,
             fontWeight: FontWeight.bold,
           ),
         ),

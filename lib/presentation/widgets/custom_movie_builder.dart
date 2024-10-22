@@ -1,8 +1,6 @@
 import 'package:flicko/constants.dart';
 import 'package:flicko/models/movie_model.dart';
-import 'package:flicko/presentation/views/movie_details_view.dart';
 import 'package:flicko/presentation/widgets/custom_movie_view.dart';
-import 'package:flicko/presentation/views/movie_details_view.dart'; // Ensure this import is present
 import 'package:flutter/material.dart';
 
 class CustomMovieViewBuilder extends StatefulWidget {

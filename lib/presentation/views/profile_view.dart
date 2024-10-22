@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flicko/constants.dart';
 import 'package:flicko/presentation/views/sign_in_view.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -16,6 +17,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimaryColor,
       body: Column(
         children: [
           Padding(
@@ -61,6 +63,7 @@ class _ProfileViewState extends State<ProfileView> {
                   ElevatedButton(
                     onPressed: () async {
                       await FirebaseAuth.instance.signOut();
+                      GoogleSignIn.standard().signOut();
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         SignInView.id,
                         (route) => false,
@@ -82,7 +85,6 @@ class _ProfileViewState extends State<ProfileView> {
               ),
             ),
           ),
-        
         ],
       ),
     );
