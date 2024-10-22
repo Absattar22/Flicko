@@ -20,7 +20,7 @@ class CategoriesCubit extends Cubit<CategoriesCubitState> {
       emit(CategoriesCubitLoading());
     }
     try {
-      final newMovies = await ApiService().fetchGnreMovies(id, page: page);
+      final newMovies = await ApiService().fetchGenreMovies(id, page: page);
       allMovies.addAll(newMovies);
       page++;
 

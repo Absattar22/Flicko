@@ -22,7 +22,7 @@ class RecommendMoviesCubit extends Cubit<RecommendMoviesCubitState> {
     }
     try {
       final newMovies =
-          await ApiService().FetchRecomdationWithGenres(id1, id2, page: page);
+          await ApiService().fetchRecommendationWithGenres(id1, id2, page: page);
       allMovies.addAll(newMovies);
 
       page++;
