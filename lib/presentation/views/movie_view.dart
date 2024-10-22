@@ -1,6 +1,8 @@
-
 import 'package:flicko/constants.dart';
+import 'package:flicko/cubit/AddToWatchListCubit/add_to_watch_list_cubit_cubit.dart';
+import 'package:flicko/data/api.dart';
 import 'package:flicko/presentation/views/profile_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'categories_view.dart';
 import 'home_view.dart';
@@ -8,7 +10,6 @@ import 'recommendation_view.dart';
 import 'watch_list_view.dart';
 import '../widgets/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-
 
 class MovieView extends StatefulWidget {
   const MovieView({super.key});
@@ -58,9 +59,12 @@ class _MovieViewState extends State<MovieView> {
 
     return Scaffold(
       backgroundColor: kPrimaryColor,
-      body: IndexedStack(
-        index: currentIndex,
-        children: _screens,
+      body: BlocProvider(
+        create: (context) => AddToWatchListCubit(apiService: ApiService()),
+        child: IndexedStack(
+          index: currentIndex,
+          children: _screens,
+        ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: currentIndex,
