@@ -104,11 +104,13 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final sWidth = MediaQuery.of(context).size.width;
+    final sHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: kPrimaryColor,
       body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        width: sWidth,
+        height: sHeight,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -118,8 +120,8 @@ class _SplashScreenState extends State<SplashScreen>
                 scale: scaleAnimation,
                 child: SvgPicture.asset(
                   'assets/images/icon.svg',
-                  height: 200,
-                  width: 200,
+                  height: sHeight * 0.2,
+                  width: sWidth * 0.2,
                 ),
               ),
             ),
@@ -131,8 +133,8 @@ class _SplashScreenState extends State<SplashScreen>
               ).createShader(bounds),
               child: Text(
                 displayedText,
-                style: const TextStyle(
-                  fontSize: 28,
+                style:  TextStyle(
+                  fontSize: sWidth * 0.06,
                   fontWeight: FontWeight.bold,
                 ),
               ),
