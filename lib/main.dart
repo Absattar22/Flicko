@@ -7,44 +7,27 @@ import 'package:flicko/presentation/views/profile_view.dart';
 import 'package:flicko/presentation/views/recommendation_view.dart';
 import 'package:flicko/presentation/views/sign_in_view.dart';
 import 'package:flicko/presentation/views/sign_up_view.dart';
+import 'package:flicko/presentation/views/splash_screen.dart';
 import 'package:flicko/presentation/views/watch_list_view.dart';
 import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_preview/device_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final prefs = await SharedPreferences.getInstance();
-  final bool hasSeenOnboarding = prefs.getBool('onboarding') ?? false;
-  final User? user = FirebaseAuth.instance.currentUser;
-
-  String initialRoute;
-
-  if (!hasSeenOnboarding) {
-    initialRoute = OnBoardingScreen.id;
-  } else if (user != null) {
-    initialRoute = MovieView.id;
-  } else {
-    initialRoute = SignUpView.id;
-  }
-
   runApp(DevicePreview(
     enabled: !kReleaseMode,
-    builder: (context) => Flicko(initialRoute: initialRoute),
+    builder: (context) => const Flicko(),
   ));
 }
 
 class Flicko extends StatelessWidget {
-  final String initialRoute;
-  const Flicko({super.key, required this.initialRoute});
+  const Flicko({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +38,7 @@ class Flicko extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       routes: {
+        SplashScreen.id: (context) => const SplashScreen(),
         OnBoardingScreen.id: (context) => OnBoardingScreen(),
         MovieView.id: (context) => const MovieView(),
         SignInView.id: (context) => const SignInView(),
@@ -64,9 +48,8 @@ class Flicko extends StatelessWidget {
         RecommendationView.id: (context) => const RecommendationView(),
         ProfileView.id: (context) => const ProfileView(),
         WatchListView.id: (context) => const WatchListView(),
-        
       },
-      initialRoute: initialRoute,
+      initialRoute: SplashScreen.id,
     );
   }
 }

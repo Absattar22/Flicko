@@ -17,16 +17,20 @@ class OtherSignInOptions extends StatelessWidget {
   final Color txtColor;
   final Color borderColor;
   final String img;
-  final bool isGoogleLoading; // Loading state
+  final bool isGoogleLoading;
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: isGoogleLoading ? null : onTap,
       child: Container(
         width: double.infinity,
-        height: 50,
-        margin: const EdgeInsets.symmetric(horizontal: 16.0),
+        height: screenHeight * 0.06,
+        margin: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.04,
+        ),
         decoration: BoxDecoration(
           border: Border.all(color: borderColor),
           color: const Color.fromARGB(255, 30, 30, 30),
@@ -37,11 +41,10 @@ class OtherSignInOptions extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10),
               child: isGoogleLoading
                   ? SizedBox(
-                      height: 24.0,
-                      width: 24.0,
+                      height: screenHeight * 0.05,
                       child: CircularProgressIndicator(
                         valueColor:
                             AlwaysStoppedAnimation<Color>(kSecondaryColor),
@@ -50,26 +53,25 @@ class OtherSignInOptions extends StatelessWidget {
                     )
                   : Image.asset(
                       img,
-                      width: 30,
-                      height: 30,
+                      width: screenWidth * 0.08,
+                      height: screenHeight * 0.04,
                     ),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: screenWidth * 0.02),
             isGoogleLoading
-                ? const Text(
+                ? Text(
                     'Loading...',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: screenWidth * 0.04,
                     ),
                   )
                 : Text(
                     text,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: screenWidth * 0.04,
                       fontFamily: 'Emad',
-                      
                     ),
                   ),
           ],
