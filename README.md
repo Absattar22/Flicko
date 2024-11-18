@@ -1,14 +1,15 @@
-Flicko 🎥
+## Flicko 🎥
 Flicko is a beautifully designed movie discovery and tracking app, built with Flutter, that connects you to a world of cinema. Whether you’re a casual moviegoer or a cinephile, Flicko helps you explore, organize, and immerse yourself in movies that matter to you.
 
-📋 Features
-🔍 Search and Discover
+### 📋 Features
+
+-🔍 Search and Discover
 Effortlessly search for movies by title, genre, or keyword. Discover hidden gems or find exactly what you're looking for.
 
-🎭 Trending and Popular Movies
+-🎭 Trending and Popular Movies
 Stay updated with what’s trending and most loved by movie fans worldwide.
 
-🎞️ Discover by Categories
+-🎞️ Discover by Categories
 Browse movies by 18 curated categories to suit your mood:
 
 Action
@@ -29,16 +30,16 @@ Science Fiction
 Western
 Thriller
 War
-🌟 Personal Watchlist
+-🌟 Personal Watchlist
 Keep track of movies you want to watch with an easy-to-manage watchlist.
 
-📖 Detailed Movie Info
+-📖 Detailed Movie Info
 From synopses to cast, ratings, and trailers, Flicko gives you all the information you need to make your movie picks.
 
-🎥 Recommendations
+-🎥 Recommendations
 Receive personalized recommendations based on your browsing and watchlist activity.
 
-🎥 Demo
+### -🎥 Demo
 Here are some screenshots showcasing the **Flicko app in action**:  
 
 | ![Screenshot](https://github.com/user-attachments/assets/54b717e3-15ed-4d19-803b-a847cd9d219e) | ![Screenshot](https://github.com/user-attachments/assets/4eee2c12-2a7d-4e0c-bfda-3f5291f42c2b) | ![Screenshot](https://github.com/user-attachments/assets/6c9b863a-46bf-42b1-ad27-2f98d5955122) | ![Screenshot](https://github.com/user-attachments/assets/0a0f054e-79f1-4137-9df9-28c8c29e13db) |  
@@ -50,5 +51,5 @@ Here are some screenshots showcasing the **Flicko app in action**:
 📧 Contact
 For questions or feedback, feel free to reach out:
 
-Email: zeyadabdelsattar@gmail.com
-LinkedIn: [Zeyad Abdelsattar](https://www.linkedin.com/in/zeyadabdelsattar74/)
+-Email: zeyadabdelsattar@gmail.com
+-LinkedIn: [Zeyad Abdelsattar](https://www.linkedin.com/in/zeyadabdelsattar74/)
