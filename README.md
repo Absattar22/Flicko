@@ -12,24 +12,25 @@ Stay updated with what’s trending and most loved by movie fans worldwide.
 - 🎞️ Discover by Categories
 Browse movies by 18 curated categories to suit your mood:
 
- Action
- Adventure
- Animation
- Comedy
- Crime
- Documentary
- Drama
- Family
- Fantasy
- History
- Horror
- Music
- Mystery
- Romance
- Science Fiction
- Western
- Thriller
- War
+ - Action
+ - Adventure
+ - Animation
+ - Comedy
+ - Crime
+ - Documentary
+ - Drama
+ - Family
+ - Fantasy
+ - History
+ - Horror
+ - Music
+ - Mystery
+ - Romance
+ - Science Fiction
+ - Western
+ - Thriller
+ - War
+   
 -🌟 Personal Watchlist
 Keep track of movies you want to watch with an easy-to-manage watchlist.
 
