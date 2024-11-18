@@ -51,4 +51,4 @@ Here are some screenshots showcasing the **Flicko app in action**:
 For questions or feedback, feel free to reach out:
 
 Email: zeyadabdelsattar@gmail.com
-LinkedIn: Zeyad Abdelsattar
+LinkedIn: [Zeyad Abdelsattar](https://www.linkedin.com/in/zeyadabdelsattar74/)
