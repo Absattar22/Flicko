@@ -3,7 +3,7 @@ Flicko is a beautifully designed movie discovery and tracking app, built with Fl
 
 ### 📋 Features
 
-- 🔍 Search and Discover
+ 🔍 Search and Discover
 Effortlessly search for movies by title, genre, or keyword. Discover hidden gems or find exactly what you're looking for.
 
 - 🎭 Trending and Popular Movies
@@ -12,24 +12,24 @@ Stay updated with what’s trending and most loved by movie fans worldwide.
 - 🎞️ Discover by Categories
 Browse movies by 18 curated categories to suit your mood:
 
- - Action
- - Adventure
- - Animation
- - Comedy
- - Crime
- - Documentary
- - Drama
- - Family
- - Fantasy
- - History
- - Horror
- - Music
- - Mystery
- - Romance
- - Science Fiction
- - Western
- - Thriller
- - War
+ 1 Action
+ 2 Adventure
+ 3 Animation
+ 4 Comedy
+ 5 Crime
+ 6 Documentary
+ 7 Drama
+ 8 Family
+ 9 Fantasy
+ 10 History
+ 11 Horror
+ 12 Music
+ 13 Mystery
+ 14 Romance
+ 15 Science Fiction
+ 16 Western
+ 17 Thriller
+ 18 War
    
 -🌟 Personal Watchlist
 Keep track of movies you want to watch with an easy-to-manage watchlist.
