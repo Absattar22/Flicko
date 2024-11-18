@@ -12,24 +12,24 @@ Stay updated with what’s trending and most loved by movie fans worldwide.
 - 🎞️ Discover by Categories
 Browse movies by 18 curated categories to suit your mood:
 
-1. Action
-2. Adventure
-3. Animation
-4. Comedy
-5. Crime
-6. Documentary
-7. Drama
-8. Family
-9. Fantasy
-10. History
-11. Horror
-12. Music
-13. Mystery
-14. Romance
-15. Science Fiction
-16. Western
-17. Thriller
-18. War
+ 1. Action
+ 2. Adventure
+ 3. Animation
+ 4. Comedy
+ 5. Crime
+ 6. Documentary
+ 7. Drama
+ 8. Family
+ 9. Fantasy
+ 10. History
+ 11. Horror
+ 12. Music
+ 13. Mystery
+ 14. Romance
+ 15. Science Fiction
+ 16. Western
+ 17. Thriller
+ 18. War
     
 - 🌟 Personal Watchlist
 Keep track of movies you want to watch with an easy-to-manage watchlist.
@@ -52,5 +52,5 @@ Here are some screenshots showcasing the **Flicko app in action**:
 ### 📧 Contact
 For questions or feedback, feel free to reach out:
 
--Email: zeyadabdelsattar@gmail.com
--LinkedIn: [Zeyad Abdelsattar](https://www.linkedin.com/in/zeyadabdelsattar74/)
+- Email: zeyadabdelsattar@gmail.com
+- LinkedIn: [Zeyad Abdelsattar](https://www.linkedin.com/in/zeyadabdelsattar74/)
