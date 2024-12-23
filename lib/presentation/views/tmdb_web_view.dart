@@ -7,6 +7,7 @@ import 'dart:async';
 
 class LoginWebView extends StatefulWidget {
   final Function(String sessionId) onLoginSuccess;
+  static const String id = 'loginWebView';
 
   const LoginWebView({super.key, required this.onLoginSuccess});
 
@@ -42,7 +43,6 @@ class _LoginWebViewState extends State<LoginWebView> {
           },
           onHttpError: (HttpResponseError error) {
             print('HTTP error: $error');
-            showError('HTTP Error: $error');
           },
           onWebResourceError: (WebResourceError error) {
             print('Web resource error: ${error.description}');

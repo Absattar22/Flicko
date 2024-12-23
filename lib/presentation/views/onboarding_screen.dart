@@ -62,6 +62,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: kPrimaryColor,
       body: Stack(
@@ -78,11 +80,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ],
           ),
           Positioned(
-            bottom: 80,
+            bottom: screenHeight * 0.1,
             left: 0,
             right: 0,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.15),
               child: ElevatedButton(
                 onPressed: () async {
                   if (_controller.page == 3) {
@@ -96,15 +98,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             builder: (context) => const SignInView()));
                   } else {
                     _controller.nextPage(
-                        duration: const Duration(milliseconds: 40),
+                        duration: const Duration(milliseconds: 30),
                         curve: Curves.fastEaseInToSlowEaseOut);
                   }
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(20, 45),
                   backgroundColor: const Color(0xFFD61919),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.15,
+                    vertical: screenHeight * 0.015,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -125,7 +129,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: [
                 SmoothPageIndicator(
                   onDotClicked: (index) => _controller.animateToPage(index,
-                      duration: const Duration(milliseconds: 200),
+                      duration: const Duration(milliseconds: 100),
                       curve: Curves.easeInCirc),
                   controller: _controller,
                   count: 4,

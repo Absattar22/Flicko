@@ -104,8 +104,16 @@ class _CustomMovieTitleState extends State<CustomMovieTitle> {
             duration: const Duration(milliseconds: 500),
             content: Text('${widget.movieTitle} added to watchlist!')),
       );
+    } else {
+      setState(() {
+        isWatchLater = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            duration: const Duration(milliseconds: 500),
+            content: Text('Failed to add ${widget.movieTitle} to watchlist!')),
+      );
     }
-    print('successAddedMovie: $successAddedMovie');
   }
 
   Future<void> _removeFromWatchlist(String sessionId) async {

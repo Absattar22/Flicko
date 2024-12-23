@@ -4,7 +4,7 @@ import 'package:flicko/models/movie_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String apiKey = 'YOUR_API_KEY';
+  final String apiKey = '7d3ba24980dd60f55fa37fccea576fb6';
   final String baseUrl = 'https://api.themoviedb.org/3';
 
   Future<List<Movie>> fetchPopularMovies({int page = 1}) async {

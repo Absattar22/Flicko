@@ -19,7 +19,6 @@ class WatchListView extends StatefulWidget {
 class _WatchListViewState extends State<WatchListView> {
   final ApiService _apiService = ApiService();
   List<dynamic> _watchlist = [];
-  bool _isLoading = true;
 
   Timer? _timer;
 
@@ -48,7 +47,6 @@ class _WatchListViewState extends State<WatchListView> {
         if (watchlist != null) {
           setState(() {
             _watchlist = watchlist;
-            _isLoading = false;
           });
         }
       }
@@ -72,13 +70,7 @@ class _WatchListViewState extends State<WatchListView> {
           builder: (context, state) {
             return Scaffold(
               backgroundColor: kPrimaryColor,
-              body: _isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(kSecondaryColor),
-                    ))
-                  : _watchlist.isEmpty
+              body: _watchlist.isEmpty
                       ? Center(
                           child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -27,7 +27,8 @@ class _MovieViewState extends State<MovieView> {
     const HomeView(),
     const WatchListView(),
     const RecommendationView(),
-    const CategoriesView(),
+    const CategoriesView(
+    ),
     const ProfileView(),
   ];
 
